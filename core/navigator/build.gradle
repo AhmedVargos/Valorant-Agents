@@ -1,0 +1,18 @@
+plugins {
+    id "com.android.library"
+    id "kotlin-android"
+}
+apply from: '..\\..\\android_library_config.gradle'
+
+dependencies {
+    implementation Dependencies.kotlin_lib
+    implementation Dependencies.androidx_core
+    implementation Dependencies.appcompat
+    
+    implementation Dependencies.koin
+    implementation Dependencies.koin_scope
+
+    testImplementation Dependencies.testlib_junit
+    androidTestImplementation Dependencies.testandroidx_runner
+    androidTestImplementation Dependencies.testandroidx_espressocore
+}

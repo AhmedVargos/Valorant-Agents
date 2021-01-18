@@ -1,0 +1,69 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "androidx.navigation.safeargs"
+}
+
+android {
+    compileSdkVersion Config.compileSdk
+    buildToolsVersion Config.buildTools
+
+    defaultConfig {
+        applicationId Config.applicationId
+        minSdkVersion Config.minSdk
+        targetSdkVersion Config.targetSdk
+        versionCode Config.versionCode
+        versionName Config.versionName
+
+        testInstrumentationRunner Config.testInstrumentationRunner
+        consumerProguardFiles Config.proguardFiles
+    }
+
+    android {
+        buildFeatures {
+            viewBinding true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'BASE_URL', "\"${RemoteServerConfigs.RELEASE_BASE_URL}\""
+        }
+
+        debug {
+            buildConfigField 'String', 'BASE_URL', "\"${RemoteServerConfigs.DEBUG_BASE_URL}\""
+        }
+
+    }
+    compileOptions {
+        sourceCompatibility Config.javaVersion
+        targetCompatibility Config.javaVersion
+    }
+    kotlinOptions {
+        jvmTarget = Config.jvmTarget
+    }
+}
+
+dependencies {
+    implementation project(Modules.BASE)
+    implementation project(Modules.REMOTE)
+    implementation project(Modules.LOCAL)
+    implementation project(Modules.HOME)
+    implementation project(Modules.NAVIGATOR)
+
+    implementation Dependencies.kotlin_lib
+    implementation Dependencies.androidx_core
+    implementation Dependencies.appcompat
+    implementation Dependencies.androidx_material
+    implementation Dependencies.androidx_constraintlayout
+
+    implementation Dependencies.koin
+    implementation Dependencies.koin_viewModel
+    implementation Dependencies.koin_scope
+
+    testImplementation Dependencies.testlib_junit
+    androidTestImplementation Dependencies.testandroidx_runner
+    androidTestImplementation Dependencies.testandroidx_espressocore
+}

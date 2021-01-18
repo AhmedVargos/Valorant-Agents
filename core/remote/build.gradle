@@ -1,0 +1,25 @@
+plugins {
+    id "com.android.library"
+    id "kotlin-android"
+}
+apply from: '..\\..\\android_library_config.gradle'
+
+dependencies {
+    implementation project(Modules.BASE)
+    implementation Dependencies.kotlin_lib
+    implementation Dependencies.androidx_core
+
+    implementation Dependencies.coroutines_core
+
+    implementation Dependencies.koin
+    implementation Dependencies.koin_scope
+
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofit_coroutines_adapter
+    implementation Dependencies.retrofit_gson_converter
+    implementation Dependencies.retrofit_logger
+
+    testImplementation Dependencies.testlib_junit
+    androidTestImplementation Dependencies.testandroidx_runner
+    androidTestImplementation Dependencies.testandroidx_espressocore
+}
