@@ -5,6 +5,6 @@
     </style>
 
     <style name="DefaultTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="fontFamily">@font/anton_regular</item>
+        <item name="fontFamily">@font/rubik</item>
     </style>
 </resources>
