@@ -5,6 +5,7 @@ include ':core:local'
 include ':core:remote'
 include ':core:base'
 include ':core:navigator'
+include ':core:uiComponents'
 include ':features:home'
 include ':app'
 rootProject.name = "Valorant Agents"

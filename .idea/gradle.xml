@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/core/local" />
             <option value="$PROJECT_DIR$/core/navigator" />
             <option value="$PROJECT_DIR$/core/remote" />
+            <option value="$PROJECT_DIR$/core/uiComponents" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/agent_details" />
             <option value="$PROJECT_DIR$/features/agents_list" />

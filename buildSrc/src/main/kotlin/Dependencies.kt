@@ -20,8 +20,7 @@ object Modules {
     const val BASE = ":core:base"
     const val NAVIGATOR = ":core:navigator"
     const val HOME = ":features:home"
-
-//    const val SAFE_ARGS = "androidx.navigation.safeargs"
+    const val UI_COMPONENTS = ":core:uiComponents"
 }
 
 object Versions {
@@ -31,6 +30,7 @@ object Versions {
     const val androidx_navigation = "2.0.0"
     const val androidx_constraintLayout = "1.1.3"
     const val material = "1.2.1"
+    const val view_pager2 = "1.0.0"
     const val navigation_safeargs = "2.2.0-rc03"
     const val KOIN = "2.0.1"
 
@@ -66,6 +66,9 @@ object Dependencies {
         "androidx.navigation:navigation-ui-ktx:${Versions.androidx_navigation}"
     val androidx_recyclerview =
         "androidx.recyclerview:recyclerview:${Versions.androidx_recyclerview}"
+
+    val androidx_viewpager2 =
+        "androidx.viewpager2:viewpager2:${Versions.view_pager2}"
     val jetpack_navigation_safeargs =
         "androidx.navigation.safeargs:${Versions.androidx_recyclerview}"
 

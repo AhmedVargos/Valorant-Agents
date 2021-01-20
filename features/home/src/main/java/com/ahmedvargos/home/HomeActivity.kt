@@ -1,11 +1,16 @@
 package com.ahmedvargos.home
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import com.ahmedvargos.base.ui.BaseActivity
+import com.ahmedvargos.home.databinding.ActivityHomeBinding
 
-class HomeActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+class HomeActivity : BaseActivity<ActivityHomeBinding>() {
+
+    override val bindingInflater: (LayoutInflater) -> ActivityHomeBinding
+        get() = ActivityHomeBinding::inflate
+
+    override fun setup() {
+        //Setup Ui views
+
     }
 }

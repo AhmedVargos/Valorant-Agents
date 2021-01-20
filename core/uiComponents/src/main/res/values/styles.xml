@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextViewStyle" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textAppearance">@style/DefaultTextAppearance</item>
+    </style>
+
+    <style name="DefaultTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/anton_regular</item>
+    </style>
+</resources>

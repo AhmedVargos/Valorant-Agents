@@ -47,11 +47,12 @@ android {
 }
 
 dependencies {
-    implementation project(Modules.BASE)
     implementation project(Modules.REMOTE)
     implementation project(Modules.LOCAL)
-    implementation project(Modules.HOME)
     implementation project(Modules.NAVIGATOR)
+    implementation project(Modules.HOME)
+    implementation project(Modules.UI_COMPONENTS)
+    implementation project(Modules.BASE)
 
     implementation Dependencies.kotlin_lib
     implementation Dependencies.androidx_core
