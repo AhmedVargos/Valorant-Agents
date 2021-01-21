@@ -12,5 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         navigator.navigateToHomeScreen(this)
+        finish()
     }
 }

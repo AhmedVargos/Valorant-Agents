@@ -5,11 +5,14 @@ plugins {
 apply from: '..\\..\\android_library_config.gradle'
 
 dependencies {
+    implementation project(Modules.BASE)
+
     implementation Dependencies.kotlin_lib
     implementation Dependencies.androidx_core
     implementation Dependencies.appcompat
     implementation Dependencies.androidx_material
     implementation Dependencies.androidx_constraintlayout
+    implementation Dependencies.androidx_fragment_ktx
 
     testImplementation Dependencies.testlib_junit
     androidTestImplementation Dependencies.testandroidx_runner

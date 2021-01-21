@@ -1,7 +1,6 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
-    id "androidx.navigation.safeargs"
 }
 
 android {
@@ -51,6 +50,8 @@ dependencies {
     implementation project(Modules.LOCAL)
     implementation project(Modules.NAVIGATOR)
     implementation project(Modules.HOME)
+    implementation project(Modules.FAVORITES)
+    implementation project(Modules.AGENTS)
     implementation project(Modules.UI_COMPONENTS)
     implementation project(Modules.BASE)
 
@@ -59,6 +60,7 @@ dependencies {
     implementation Dependencies.appcompat
     implementation Dependencies.androidx_material
     implementation Dependencies.androidx_constraintlayout
+    implementation Dependencies.coroutines_core
 
     implementation Dependencies.koin
     implementation Dependencies.koin_viewModel

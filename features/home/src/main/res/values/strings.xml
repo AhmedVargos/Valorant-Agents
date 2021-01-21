@@ -1,3 +1,5 @@
 <resources>
     <string name="choose_your_awesome_agents">Choose your \n awesome agents</string>
+    <string name="popular_agents">Popular</string>
+    <string name="favorite_agents">Favorites</string>
 </resources>

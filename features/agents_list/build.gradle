@@ -5,13 +5,28 @@ plugins {
 apply from: '..\\..\\android_library_config.gradle'
 
 dependencies {
+    implementation project(Modules.BASE)
+    implementation project(Modules.REMOTE)
+    implementation project(Modules.LOCAL)
+    implementation project(Modules.UI_COMPONENTS)
+
     implementation Dependencies.kotlin_lib
     implementation Dependencies.androidx_core
     implementation Dependencies.appcompat
     implementation Dependencies.androidx_material
     implementation Dependencies.androidx_constraintlayout
+    implementation Dependencies.androidx_recyclerview
+    implementation Dependencies.androidx_lifecycle_ktx
+    implementation Dependencies.androidx_fragment_ktx
+    implementation Dependencies.coroutines_core
+    implementation Dependencies.coroutines_android
+
+    implementation Dependencies.koin
+    implementation Dependencies.koin_scope
+    implementation Dependencies.koin_viewModel
 
     testImplementation Dependencies.testlib_junit
+    testImplementation Dependencies.coroutines_testing
     androidTestImplementation Dependencies.testandroidx_runner
     androidTestImplementation Dependencies.testandroidx_espressocore
 }

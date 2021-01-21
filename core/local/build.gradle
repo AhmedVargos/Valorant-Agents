@@ -12,6 +12,8 @@ dependencies {
 
     implementation Dependencies.coroutines_core
 
+    implementation Dependencies.gson
+
     implementation Dependencies.koin
     implementation Dependencies.koin_scope
 

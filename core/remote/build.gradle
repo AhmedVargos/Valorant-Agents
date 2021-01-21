@@ -14,7 +14,7 @@ dependencies {
     implementation Dependencies.koin
     implementation Dependencies.koin_scope
 
-    implementation Dependencies.retrofit
+    api Dependencies.retrofit
     implementation Dependencies.retrofit_coroutines_adapter
     implementation Dependencies.retrofit_gson_converter
     implementation Dependencies.retrofit_logger

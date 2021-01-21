@@ -6,12 +6,19 @@ apply from: '..\\..\\android_library_config.gradle'
 
 dependencies {
     implementation project(Modules.BASE)
+    implementation project(Modules.UI_COMPONENTS)
+    implementation project(Modules.FAVORITES)
+    implementation project(Modules.AGENTS)
+
     implementation Dependencies.kotlin_lib
     implementation Dependencies.androidx_core
     implementation Dependencies.appcompat
     implementation Dependencies.androidx_material
     implementation Dependencies.androidx_viewpager2
     implementation Dependencies.androidx_constraintlayout
+
+    implementation Dependencies.koin
+    implementation Dependencies.koin_scope
 
     testImplementation Dependencies.testlib_junit
     androidTestImplementation Dependencies.testandroidx_runner
