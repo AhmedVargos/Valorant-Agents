@@ -31,6 +31,7 @@ data class Resource<out T>(val status: Status, val data: T?, val messageType: Fa
     enum class Status {
         SUCCESS,
         ERROR,
-        LOADING
+        LOADING,
+        NONE
     }
 }

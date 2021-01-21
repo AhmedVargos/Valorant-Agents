@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ahmedvargos.agents_list.databinding.FragmentAgentsListBinding
+import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.ui.BaseFragment
 import com.ahmedvargos.uicomponents.adapters.AgentsRecyclerAdapter
@@ -46,13 +48,15 @@ class AgentsListFragment : BaseFragment<FragmentAgentsListBinding>() {
             when (it.status) {
                 Resource.Status.LOADING -> {
                     //Show loading & hide rv
-                    binding.progressView.visible()
-                    binding.rvAgentsList.gone()
+                    it.data?.let { agents ->
+                        fillAgentsWithData(agents)
+                    } ?: run {
+                        binding.progressView.visible()
+                        binding.rvAgentsList.gone()
+                    }
                 }
                 Resource.Status.SUCCESS -> {
-                    binding.progressView.gone()
-                    binding.rvAgentsList.visible()
-                    agentsAdapter.addAgents(it.data ?: mutableListOf())
+                    fillAgentsWithData(it.data)
                 }
                 Resource.Status.ERROR -> {
                     //Show error toast & hide progress
@@ -60,9 +64,18 @@ class AgentsListFragment : BaseFragment<FragmentAgentsListBinding>() {
                     Toast.makeText(requireContext(), it.messageType?.message, Toast.LENGTH_SHORT)
                         .show()
                 }
+                Resource.Status.NONE -> {
+
+                }
             }
         }
 
         agentsListViewModel.getPopularAgents()
+    }
+
+    private fun fillAgentsWithData(agents: List<AgentInfo>?) {
+        binding.progressView.gone()
+        binding.rvAgentsList.visible()
+        agentsAdapter.addAgents(agents ?: mutableListOf())
     }
 }
