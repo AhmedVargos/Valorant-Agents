@@ -1,5 +1,6 @@
 # Valorant Agents
 [![kotlin](https://img.shields.io/badge/Kotlin-1.4.xxx-blue)](https://kotlinlang.org/) [![MVVM](https://img.shields.io/badge/MVVM-Architecture-orange)]() [![coroutines](https://img.shields.io/badge/Coroutines-Asynchronous-red)](https://developer.android.com/kotlin/coroutines)
+
 ![UI](https://github.com/AhmedVargos/Valorant-Agents/blob/master/screenshots/basic_design.jpg)
 
 Valorant Agents app is a small Multi-Module demo application to demonstrate modern Android application tech-stacks with a Multi-module and MVVM architecture.
@@ -46,8 +47,8 @@ Modules Design:
     - Agent_Details
     - Favorites
     - Agent_List
-![UI](https://github.com/AhmedVargos/Valorant-Agents/blob/master/screenshots/basic_design.jpg)
-![architecture](https://github.com/AhmedVargos/Valorant-Agents/blob/master/screenshots/arch_giagram.jpg)
+
+![architecture](https://github.com/AhmedVargos/Valorant-Agents/blob/master/screenshots/arch_diagram.jpg)
 
 ## Open API
 Valorant Agents uses the [Valorant-api](https://dash.valorant-api.com/) for required data.
@@ -57,6 +58,7 @@ Valorant-api provides an extensive API containing data of most in-game items, as
 [x] Creating the project structure
 [-] Implementing all features
 [-] Writing test cases
+
 # License
 ```xml
 Designed and developed by 2020 AhmedVargos
