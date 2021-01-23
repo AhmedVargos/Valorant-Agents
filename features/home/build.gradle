@@ -16,9 +16,13 @@ dependencies {
     implementation Dependencies.androidx_material
     implementation Dependencies.androidx_viewpager2
     implementation Dependencies.androidx_constraintlayout
+    implementation Dependencies.coroutines_core
+    implementation Dependencies.coroutines_android
+    implementation Dependencies.androidx_lifecycle_ktx
 
     implementation Dependencies.koin
     implementation Dependencies.koin_scope
+    implementation Dependencies.koin_viewModel
 
     testImplementation Dependencies.testlib_junit
     androidTestImplementation Dependencies.testandroidx_runner

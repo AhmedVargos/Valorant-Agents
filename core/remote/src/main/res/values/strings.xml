@@ -1,0 +1,5 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="connection_time_out">Failed to connect to server please check you network!</string>
+    <string name="generic_error">Something went wrong please try again!</string>
+</resources>

@@ -1,6 +1,7 @@
 package com.ahmedvargos.remote
 
 import com.ahmedvargos.base.utils.NetworkCodes
+import com.ahmedvargos.remote.utils.ErrorCodesMapper
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.TimeoutCancellationException
@@ -32,7 +33,8 @@ internal suspend fun <T> safeApiCall(
                 }
                 is IOException -> {
                     ResultWrapper.GenericError(
-                        code = NetworkCodes.CONNECTION_ERROR
+                        code = NetworkCodes.CONNECTION_ERROR,
+                        message = ErrorCodesMapper.getMessage(NetworkCodes.CONNECTION_ERROR)
                     )
                 }
                 is HttpException -> {
@@ -43,7 +45,8 @@ internal suspend fun <T> safeApiCall(
                 }
                 else -> {
                     ResultWrapper.GenericError(
-                        code = NetworkCodes.GENERAL_ERROR
+                        code = NetworkCodes.GENERIC_ERROR,
+                        message = ErrorCodesMapper.getMessage(NetworkCodes.GENERIC_ERROR)
                     )
                 }
             }
@@ -56,7 +59,7 @@ internal suspend fun <T> safeApiCall(
 //for custom error body
 private fun convertErrorBody(throwable: HttpException): String? {
     try {
-        val json = JSONTokener(throwable.response()?.errorBody()?.string()).nextValue();
+        val json = JSONTokener(throwable.response()?.errorBody()?.string()).nextValue()
         if (json is JSONObject || json is JSONArray) {
             val errorResponse = Gson().fromJson(json.toString(), ErrorResponse::class.java)
             errorResponse?.let { return it.message }

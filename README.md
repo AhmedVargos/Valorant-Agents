@@ -13,22 +13,23 @@ Valorant Agents app is a small Multi-Module demo application to demonstrate mode
 - [StateFlow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/index.html)
 - [Koin](https://insert-koin.io) for dependency injection.
 - [JetPack](https://developer.android.com/jetpack)
-  - LiveData - notify domain layer data to views.
-  - Lifecycle - dispose of observing data when lifecycle state changes.
+  - LiveData - Notify domain layer data to views.
+  - Lifecycle - Dispose of observing data when lifecycle state changes.
   - Fragment-ktx
   - ViewPager2
   - ViewModel - UI related data holder, lifecycle aware.
+  - SharedViewModel - To make communication between fragments and host activity.
   - Room Persistence - construct a database using the abstract layer.
 - Architecture
-  - Multi-module design for the app
+  - Multi-module design for the app.
   - MVVM Architecture (View - DataBinding - ViewModel - Model)
   - Repository pattern (NetworkBoundResource)
-  - Clean Architecture approach
+  - Clean Architecture approach.
 - [Gradle KotlinDsl](https://docs.gradle.org/current/userguide/kotlin_dsl.html)
-- [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - construct the REST APIs.
+- [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - Construct the REST APIs.
 - [Gson](https://github.com/google/gson)
-- [Glide](https://github.com/bumptech/glide) - loading images.
-- [Material-Components](https://github.com/material-components/material-components-android) - Material design components
+- [Glide](https://github.com/bumptech/glide) - Loading images.
+- [Material-Components](https://github.com/material-components/material-components-android) - Material design components.
 
 ## Architecture
 Valorant Agents is Multi-moduled application with a meaningful separation for layers and features with the necessary grouping.
@@ -56,7 +57,9 @@ Valorant-api provides an extensive API containing data of most in-game items, as
 
 ## Tasks
 [x] Creating the project structure
+
 [-] Implementing all features
+
 [-] Writing test cases
 
 # License
