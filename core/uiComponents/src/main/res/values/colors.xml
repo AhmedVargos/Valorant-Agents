@@ -12,4 +12,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey_200">#EEEEEE</color>
     <color name="red">#C10505</color>
+    <color name="blue_grey_800">#19253A</color>
+    <color name="blue_grey_1000">#1B2A3D</color>
+
 </resources>

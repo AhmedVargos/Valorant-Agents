@@ -12,11 +12,11 @@ data class AgentInfo(
     val description: String,
     val bustPortrait: String,
     val role: Role?,
-    val abilities: List<Abilities>,
+    val abilities: List<Ability>,
     var isFav: Boolean = false
 )
 
-data class Abilities(
+data class Ability(
     val slot: String,
     val displayName: String,
     val description: String,

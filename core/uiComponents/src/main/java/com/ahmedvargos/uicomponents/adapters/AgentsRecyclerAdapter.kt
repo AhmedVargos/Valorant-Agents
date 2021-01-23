@@ -31,10 +31,10 @@ class AgentsRecyclerAdapter(
     override fun onBindViewHolder(holder: AgentViewHolder, position: Int) =
         holder.bind(agentsList[position])
 
-    inner class AgentViewHolder(private val biding: ItemAgentCellBinding) :
-        RecyclerView.ViewHolder(biding.root) {
+    inner class AgentViewHolder(private val binding: ItemAgentCellBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(agent: AgentInfo) {
-            biding.agentCellView.initDetails(
+            binding.agentCellView.initDetails(
                 agentInfo = agent,
                 actionDelegate = agentCellActionsDelegate
             )

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dark_grey_bg">
+
+    <ImageView
+        android:id="@+id/ivSkill"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="12dp"
+        android:background="@drawable/dark_blue_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tvSkillName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:letterSpacing="0.2"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/ivSkill"
+        app:layout_constraintTop_toTopOf="@id/ivSkill"
+        tools:text="Paranoia" />
+
+    <TextView
+        android:id="@+id/tvSkillDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="@color/grey_200"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvSkillName"
+        app:layout_constraintTop_toBottomOf="@id/tvSkillName"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus massa a nibh placerat tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas." />
+</androidx.constraintlayout.widget.ConstraintLayout>

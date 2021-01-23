@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:background="@color/blue_grey_900">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivBackground"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/pink_700"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvAgentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:letterSpacing="0.2"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/ivBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivBackground"
+            app:layout_constraintVertical_bias="0.6"
+            tools:text="OMEN" />
+
+        <TextView
+            android:id="@+id/tvRoleType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/grey_200"
+            android:textSize="16sp"
+            android:background="@drawable/dark_blue_bg"
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="@id/tvAgentName"
+            app:layout_constraintTop_toBottomOf="@id/tvAgentName"
+            tools:text="Controller" />
+
+        <ImageView
+            android:id="@+id/ivAgentPic"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="50dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@id/ivBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/agent_test"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvBiographyLabel"
+            style="@style/agent_bold_section_titles"
+            android:text="@string/biography_str"
+            app:layout_constraintStart_toStartOf="@id/tvAgentName"
+            app:layout_constraintTop_toBottomOf="@id/ivBackground" />
+
+        <TextView
+            android:id="@+id/tvBiographyText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/biography_str"
+            android:textColor="@color/grey_200"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvBiographyLabel"
+            app:layout_constraintTop_toBottomOf="@id/tvBiographyLabel"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus massa a nibh placerat tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin mollis mi sed massa posuere, ac vestibulum ligula suscipit. In in est lectus. Duis sodales sed elit eu feugiat." />
+
+        <TextView
+            android:id="@+id/tvSkillsLabel"
+            style="@style/agent_bold_section_titles"
+            android:text="@string/special_abilities_str"
+            app:layout_constraintStart_toStartOf="@id/tvBiographyLabel"
+            app:layout_constraintTop_toBottomOf="@id/tvBiographyText" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSkills"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvSkillsLabel"
+            app:layout_constraintTop_toBottomOf="@id/tvSkillsLabel" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
