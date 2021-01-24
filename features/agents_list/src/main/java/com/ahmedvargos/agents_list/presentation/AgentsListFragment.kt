@@ -10,11 +10,13 @@ import com.ahmedvargos.agents_list.databinding.FragmentAgentsListBinding
 import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.ui.BaseFragment
+import com.ahmedvargos.navigator.NavigationActions
 import com.ahmedvargos.uicomponents.adapters.AgentsRecyclerAdapter
 import com.ahmedvargos.uicomponents.utils.gone
 import com.ahmedvargos.uicomponents.utils.showErrorDialog
 import com.ahmedvargos.uicomponents.utils.visible
 import com.ahmedvargos.uicomponents.view_models.AgentCellViewModel
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,6 +31,8 @@ class AgentsListFragment : BaseFragment<FragmentAgentsListBinding>() {
     private val cacheStateViewModel by lazy {
         requireActivity().getViewModel<CacheStateSharedViewModel>()
     }
+
+    private val navigator: NavigationActions by inject()
 
     private val agentsAdapter by lazy {
         AgentsRecyclerAdapter(agentCellActionsDelegate = agentCellViewModel)
@@ -77,6 +81,10 @@ class AgentsListFragment : BaseFragment<FragmentAgentsListBinding>() {
                     }
                 }
             }
+
+        agentCellViewModel.openAgentDetails.observe(this) {
+            navigator.navigateToAgentDetailsScreen(requireContext(), agentId = it.uuid)
+        }
 
         agentsListViewModel.getPopularAgents()
     }

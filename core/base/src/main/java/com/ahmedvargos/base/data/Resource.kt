@@ -26,6 +26,14 @@ data class Resource<out T>(val status: Status, val data: T?, val messageType: Fa
                 null
             )
         }
+
+        fun <T> none(): Resource<T> {
+            return Resource(
+                Status.NONE,
+                null,
+                null
+            )
+        }
     }
 
     enum class Status {

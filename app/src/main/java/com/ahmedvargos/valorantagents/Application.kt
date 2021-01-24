@@ -1,6 +1,7 @@
 package com.ahmedvargos.valorantagents
 
 import android.app.Application
+import com.ahmedvargos.agent_details.di.getAgentDetailsModule
 import com.ahmedvargos.agents_list.di.getAgentsListModule
 import com.ahmedvargos.home.di.getHomeModules
 import com.ahmedvargos.local.di.getLocalModule
@@ -20,7 +21,8 @@ class App : Application() {
             getLocalModule(),
             getNavigatorModule(),
             getHomeModules(),
-            getAgentsListModule()
+            getAgentsListModule(),
+            getAgentDetailsModule()
         )
 
         startKoin {

@@ -9,6 +9,7 @@ dependencies {
     implementation project(Modules.UI_COMPONENTS)
     implementation project(Modules.FAVORITES)
     implementation project(Modules.AGENTS)
+    implementation project(Modules.NAVIGATOR)
 
     implementation Dependencies.kotlin_lib
     implementation Dependencies.androidx_core

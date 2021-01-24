@@ -6,6 +6,7 @@ apply from: '..\\..\\android_library_config.gradle'
 
 dependencies {
     implementation project(Modules.BASE)
+    implementation project(Modules.NAVIGATOR)
 
     implementation Dependencies.kotlin_lib
     implementation Dependencies.androidx_core

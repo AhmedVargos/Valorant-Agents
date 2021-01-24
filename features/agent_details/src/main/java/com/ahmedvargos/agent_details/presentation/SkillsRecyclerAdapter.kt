@@ -1,4 +1,4 @@
-package com.ahmedvargos.agent_details
+package com.ahmedvargos.agent_details.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

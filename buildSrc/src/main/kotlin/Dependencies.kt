@@ -22,6 +22,7 @@ object Modules {
     const val HOME = ":features:home"
     const val FAVORITES = ":features:favorites"
     const val AGENTS = ":features:agents_list"
+    const val AGENT_DETAILS = ":features:agent_details"
     const val UI_COMPONENTS = ":core:uiComponents"
 }
 

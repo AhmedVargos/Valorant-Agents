@@ -13,4 +13,7 @@ interface AgentsDao {
 
     @Query("SELECT * from agent_entity")
     suspend fun getAll(): List<AgentEntity>
+
+    @Query("SELECT * from agent_entity WHERE id =:agentId")
+    suspend fun getAgent(agentId: String): AgentEntity?
 }

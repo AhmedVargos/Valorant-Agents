@@ -52,6 +52,7 @@ dependencies {
     implementation project(Modules.HOME)
     implementation project(Modules.FAVORITES)
     implementation project(Modules.AGENTS)
+    implementation project(Modules.AGENT_DETAILS)
     implementation project(Modules.UI_COMPONENTS)
     implementation project(Modules.BASE)
 
