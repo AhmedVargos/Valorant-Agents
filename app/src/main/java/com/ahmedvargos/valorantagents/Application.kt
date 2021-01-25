@@ -3,6 +3,7 @@ package com.ahmedvargos.valorantagents
 import android.app.Application
 import com.ahmedvargos.agent_details.di.getAgentDetailsModule
 import com.ahmedvargos.agents_list.di.getAgentsListModule
+import com.ahmedvargos.favorites.di.getFavoriteAgentsModules
 import com.ahmedvargos.home.di.getHomeModules
 import com.ahmedvargos.local.di.getLocalModule
 import com.ahmedvargos.navigator.di.getNavigatorModule
@@ -22,7 +23,8 @@ class App : Application() {
             getNavigatorModule(),
             getHomeModules(),
             getAgentsListModule(),
-            getAgentDetailsModule()
+            getAgentDetailsModule(),
+            getFavoriteAgentsModules()
         )
 
         startKoin {

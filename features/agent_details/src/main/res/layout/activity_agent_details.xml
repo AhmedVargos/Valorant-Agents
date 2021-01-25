@@ -24,17 +24,17 @@
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="15dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/dark_blue_bg"
             android:padding="8dp"
+            android:text="@string/back_str"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:text="@string/back_str"
-            android:layout_margin="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            />
+
         <TextView
             android:id="@+id/tvAgentName"
             android:layout_width="wrap_content"
@@ -74,6 +74,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription"
             tools:src="@drawable/agent_test" />
+
+        <ImageButton
+            android:id="@+id/btnFav"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/fav_bg"
+            app:layout_constraintBottom_toBottomOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline"
+            app:srcCompat="@drawable/ic_unselected_fav_24"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tvBiographyLabel"
@@ -118,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="tvBiographyLabel,tvBiographyText,tvSkillsLabel,tvAgentName,ivBackground,ivAgentPic,rvSkills,tvRoleType"
+            app:constraint_referenced_ids="btnFav,tvBiographyLabel,tvBiographyText,tvSkillsLabel,tvAgentName,ivBackground,ivAgentPic,rvSkills,tvRoleType"
             tools:visibility="visible" />
 
         <ProgressBar
@@ -131,5 +143,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="250dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

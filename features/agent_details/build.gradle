@@ -10,6 +10,7 @@ dependencies {
     implementation project(Modules.LOCAL)
     implementation project(Modules.UI_COMPONENTS)
     implementation project(Modules.NAVIGATOR)
+    implementation project(Modules.FAVORITES)
 
     implementation Dependencies.kotlin_lib
     implementation Dependencies.androidx_core

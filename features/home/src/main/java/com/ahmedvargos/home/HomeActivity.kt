@@ -1,12 +1,11 @@
 package com.ahmedvargos.home
 
 import android.view.LayoutInflater
-import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import com.ahmedvargos.agents_list.presentation.AgentsListFragment
 import com.ahmedvargos.agents_list.presentation.CacheStateSharedViewModel
 import com.ahmedvargos.base.ui.BaseActivity
-import com.ahmedvargos.favorites.FavoriteAgentsFragment
+import com.ahmedvargos.favorites.presentation.FavoriteAgentsFragment
 import com.ahmedvargos.home.databinding.ActivityHomeBinding
 import com.ahmedvargos.uicomponents.utils.gone
 import com.ahmedvargos.uicomponents.utils.visible
