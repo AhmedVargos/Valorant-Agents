@@ -22,6 +22,7 @@ dependencies {
     implementation Dependencies.androidx_fragment_ktx
     implementation Dependencies.coroutines_core
     implementation Dependencies.coroutines_android
+    implementation Dependencies.androidx_palette
 
     implementation Dependencies.koin
     implementation Dependencies.koin_scope

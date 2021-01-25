@@ -40,12 +40,10 @@ object Versions {
     const val view_pager2 = "1.0.0"
     const val navigation_safeargs = "2.2.0-rc03"
     const val KOIN = "2.0.1"
-    const val picasso = "2.71828"
 
     const val retrofit = "2.6.2"
     const val retrofitCoroutines = "0.9.2"
-    const val retrofitGson = "2.6.2"
-    const val gson = "2.8.5"
+    const val moshi = "1.9.1"
     const val okHttp = "3.12.1"
 
     const val junit = "4.12"
@@ -81,8 +79,6 @@ object Dependencies {
         "androidx.viewpager2:viewpager2:${Versions.view_pager2}"
     val androidx_palette = "androidx.palette:palette:${Versions.palette}"
 
-    val jetpack_navigation_safeargs =
-        "androidx.navigation.safeargs:${Versions.androidx_recyclerview}"
     val coroutines_core =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines_android_version}"
 
@@ -97,10 +93,10 @@ object Dependencies {
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     val retrofit_coroutines_adapter =
         "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${Versions.retrofitCoroutines}"
-    val retrofit_gson_converter = "com.squareup.retrofit2:converter-gson:${Versions.retrofitGson}"
+    val retrofit_moshi_converter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
     val retrofit_logger = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
 
-    const val gson = "com.google.code.gson:gson:${Versions.gson}"
+    const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
 
     val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     val glide_annotations = "com.github.bumptech.glide:compiler:${Versions.glide}"

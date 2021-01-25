@@ -1,6 +1,7 @@
 package com.ahmedvargos.uicomponents.custom_views
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -63,9 +64,9 @@ class AgentCellView @JvmOverloads constructor(
                         Palette.from(bitmap).generate {
                             //Use the dominant color in image
                             val dominantColor =
-                                it?.getDominantColor(ContextCompat.getColor(context, R.color.white))
+                                it?.getMutedColor(ContextCompat.getColor(context, R.color.white))
                                     ?: 0x000
-                            binding.ivBackground.setColorFilter(dominantColor)
+                            binding.ivBackground.backgroundTintList = ColorStateList.valueOf(dominantColor)
                         }
                     }
                     return false

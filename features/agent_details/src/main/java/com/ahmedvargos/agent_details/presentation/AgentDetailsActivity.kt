@@ -1,8 +1,12 @@
 package com.ahmedvargos.agent_details.presentation
 
+import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.widget.ImageButton
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.asLiveData
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahmedvargos.agent_details.R
 import com.ahmedvargos.agent_details.databinding.ActivityAgentDetailsBinding
@@ -11,10 +15,14 @@ import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.ui.BaseActivity
 import com.ahmedvargos.favorites.presentation.FavoriteAgentsViewModel
 import com.ahmedvargos.navigator.ActionKeys
+import com.ahmedvargos.uicomponents.utils.GlideApp
 import com.ahmedvargos.uicomponents.utils.gone
-import com.ahmedvargos.uicomponents.utils.loadImage
 import com.ahmedvargos.uicomponents.utils.showErrorDialog
 import com.ahmedvargos.uicomponents.utils.visible
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
@@ -75,7 +83,7 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
 
     private fun fillAgentDetails(agentInfo: AgentInfo) {
         with(binding) {
-            ivAgentPic.loadImage(agentInfo.bustPortrait)
+            configAgentImage(agentInfo.bustPortrait ?: "")
             tvAgentName.text = agentInfo.displayName
             tvRoleType.text = agentInfo.role?.displayName
             btnFav.setImageResource(agentInfo.isFav.getFavoriteImage())
@@ -86,6 +94,42 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
                 isNestedScrollingEnabled = false
             }
         }
+    }
+
+    private fun configAgentImage(bustPortrait: String) {
+        GlideApp.with(this)
+            .asBitmap()
+            .load(bustPortrait)
+            .listener(object : RequestListener<Bitmap>{
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Bitmap?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    resource?.let { bitmap ->
+                        Palette.from(bitmap).generate {
+                            //Use the dominant color in image
+                            val dominantColor =
+                                it?.getMutedColor(ContextCompat.getColor(this@AgentDetailsActivity, R.color.white))
+                                    ?: 0x000
+                            binding.ivBackground.backgroundTintList = ColorStateList.valueOf(dominantColor)
+                        }
+                    }
+                    return false
+                }
+
+            }).into(binding.ivAgentPic)
     }
 
     private fun Boolean.getFavoriteImage(isReverse: Boolean = false): Int {

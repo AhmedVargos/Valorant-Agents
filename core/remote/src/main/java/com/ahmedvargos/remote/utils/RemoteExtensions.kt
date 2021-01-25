@@ -1,8 +1,8 @@
-package com.ahmedvargos.remote
+package com.ahmedvargos.remote.utils
 
 import com.ahmedvargos.base.utils.NetworkCodes
-import com.ahmedvargos.remote.utils.ErrorCodesMapper
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withContext
@@ -61,7 +61,10 @@ private fun convertErrorBody(throwable: HttpException): String? {
     try {
         val json = JSONTokener(throwable.response()?.errorBody()?.string()).nextValue()
         if (json is JSONObject || json is JSONArray) {
-            val errorResponse = Gson().fromJson(json.toString(), ErrorResponse::class.java)
+            val moshi = Moshi.Builder().build()
+            val typeCustom = Types.newParameterizedType(ErrorResponse::class.java)
+            val errorResponse = moshi.adapter<ErrorResponse>(typeCustom).fromJson(json.toString())
+
             errorResponse?.let { return it.message }
         }
         return null

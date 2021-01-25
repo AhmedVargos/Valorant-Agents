@@ -16,8 +16,10 @@ dependencies {
 
     api Dependencies.retrofit
     implementation Dependencies.retrofit_coroutines_adapter
-    implementation Dependencies.retrofit_gson_converter
+    implementation Dependencies.retrofit_moshi_converter
+    implementation Dependencies.moshi
     implementation Dependencies.retrofit_logger
+
 
     testImplementation Dependencies.testlib_junit
     androidTestImplementation Dependencies.testandroidx_runner

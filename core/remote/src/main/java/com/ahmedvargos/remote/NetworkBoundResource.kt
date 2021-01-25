@@ -2,6 +2,8 @@ package com.ahmedvargos.remote
 
 import com.ahmedvargos.base.data.FailureData
 import com.ahmedvargos.base.data.Resource
+import com.ahmedvargos.remote.utils.ResultWrapper
+import com.ahmedvargos.remote.utils.safeApiCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow

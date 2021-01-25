@@ -10,6 +10,7 @@ dependencies {
     implementation Dependencies.appcompat
     implementation Dependencies.androidx_material
     implementation Dependencies.androidx_constraintlayout
+    implementation Dependencies.moshi
 
     testImplementation Dependencies.testlib_junit
     androidTestImplementation Dependencies.testandroidx_runner
