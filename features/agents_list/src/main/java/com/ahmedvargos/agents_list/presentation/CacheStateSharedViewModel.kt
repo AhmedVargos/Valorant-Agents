@@ -13,5 +13,4 @@ class CacheStateSharedViewModel : ViewModel() {
     fun updateCachedDataState(newState: Boolean) {
         _cachedStateFlow.value = newState
     }
-
 }

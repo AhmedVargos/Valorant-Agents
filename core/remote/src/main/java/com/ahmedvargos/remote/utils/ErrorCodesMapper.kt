@@ -10,7 +10,8 @@ object ErrorCodesMapper : KoinComponent {
     private val appContext: Context by inject()
 
     fun getMessage(errorCode: Int) = when (errorCode) {
-        NetworkCodes.CONNECTION_ERROR, NetworkCodes.TIMEOUT_ERROR -> appContext.getString(R.string.connection_time_out)
+        NetworkCodes.CONNECTION_ERROR,
+        NetworkCodes.TIMEOUT_ERROR -> appContext.getString(R.string.connection_time_out)
         else -> appContext.getString(R.string.generic_error)
     }
 }

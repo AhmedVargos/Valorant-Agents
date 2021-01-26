@@ -22,7 +22,6 @@ fun View.visible() {
     }
 }
 
-
 fun ImageView.loadImage(url: String?) {
     if (url?.isNotEmpty() == true) {
         GlideApp.with(context)

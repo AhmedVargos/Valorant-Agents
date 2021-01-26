@@ -10,12 +10,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-
 @ExperimentalCoroutinesApi
 fun getAgentDetailsModule() = module {
 
     factory<AgentDetailsLocalDataSource> {
-        AgentDetailsLocalDataSourceImpl(get(), get())
+        AgentDetailsLocalDataSourceImpl(get())
     }
 
     single<AgentDetailsRepo> {

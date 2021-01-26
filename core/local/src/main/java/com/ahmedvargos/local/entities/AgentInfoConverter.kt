@@ -11,7 +11,8 @@ class AgentInfoConverter {
     fun fromString(value: String): AgentInfo? {
         return if (!value.contentEquals("null")) {
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-            val typeCustom = Types.newParameterizedType(AgentInfo::class.java, AgentInfo::class.java)
+            val typeCustom =
+                Types.newParameterizedType(AgentInfo::class.java, AgentInfo::class.java)
             moshi.adapter<AgentInfo>(typeCustom).fromJson(value)
         } else null
     }

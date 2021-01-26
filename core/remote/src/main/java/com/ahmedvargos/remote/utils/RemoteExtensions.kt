@@ -50,13 +50,11 @@ internal suspend fun <T> safeApiCall(
                     )
                 }
             }
-
         }
     }
 }
 
-
-//for custom error body
+// for custom error body
 private fun convertErrorBody(throwable: HttpException): String? {
     try {
         val json = JSONTokener(throwable.response()?.errorBody()?.string()).nextValue()
@@ -68,11 +66,9 @@ private fun convertErrorBody(throwable: HttpException): String? {
             errorResponse?.let { return it.message }
         }
         return null
-
     } catch (exception: Exception) {
         return null
     }
 }
 
 class ErrorResponse(val message: String? = "")
-

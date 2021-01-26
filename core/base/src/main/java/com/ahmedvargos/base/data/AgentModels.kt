@@ -15,7 +15,11 @@ data class AgentInfo(
     @field:Json(name = "role") val role: Role?,
     @field:Json(name = "abilities") val abilities: List<Ability>,
     @field:Json(name = "isFav") var isFav: Boolean = false
-)
+) {
+    fun toggleFav() {
+        this.isFav = isFav.not()
+    }
+}
 
 data class Ability(
     val displayName: String?,

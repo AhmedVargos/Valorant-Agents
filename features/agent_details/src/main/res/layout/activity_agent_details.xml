@@ -84,11 +84,12 @@
             android:layout_height="50dp"
             android:layout_margin="16dp"
             android:background="@drawable/fav_bg"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/guideline"
             app:srcCompat="@drawable/ic_unselected_fav_24"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,UnusedAttribute" />
 
         <TextView
             android:id="@+id/tvBiographyLabel"

@@ -5,9 +5,11 @@ import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.favorites.data.data_sources.local.FavoritesLocalDataSource
 import com.ahmedvargos.favorites.domain.repo.FavoriteAgentsRepo
 import com.ahmedvargos.remote.NetworkBoundResource
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
+@ExperimentalCoroutinesApi
 class FavoriteAgentsRepoImpl(
     private val localDataSource: FavoritesLocalDataSource
 ) : FavoriteAgentsRepo {
@@ -15,7 +17,7 @@ class FavoriteAgentsRepoImpl(
         return localDataSource.getFavoriteAgents().map {
             it.map { agentEntity ->
                 agentEntity.data.apply {
-                    this.isFav = agentEntity.isFav ?: false
+                    this.isFav = agentEntity.isFav
                 }
             }
         }
@@ -28,7 +30,6 @@ class FavoriteAgentsRepoImpl(
             }
 
             override suspend fun saveFetchResult(data: Boolean) {
-
             }
 
             override suspend fun localFetch(): Boolean {
@@ -36,7 +37,6 @@ class FavoriteAgentsRepoImpl(
             }
 
             override fun shouldFetch() = false
-
         }.asFlow()
     }
 }

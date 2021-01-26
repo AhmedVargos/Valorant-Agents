@@ -1,7 +1,7 @@
 package com.ahmedvargos.valorantagents
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.ahmedvargos.navigator.NavigationActions
 import org.koin.android.ext.android.inject
 

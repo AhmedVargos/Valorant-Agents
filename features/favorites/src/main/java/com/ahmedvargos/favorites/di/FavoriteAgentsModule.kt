@@ -7,11 +7,9 @@ import com.ahmedvargos.favorites.domain.repo.FavoriteAgentsRepo
 import com.ahmedvargos.favorites.domain.usecases.FavoriteAgentsInquiryUseCase
 import com.ahmedvargos.favorites.domain.usecases.FavoriteAgentsToggleUseCase
 import com.ahmedvargos.favorites.presentation.FavoriteAgentsViewModel
-import com.ahmedvargos.uicomponents.view_models.AgentCellViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-
 
 @ExperimentalCoroutinesApi
 fun getFavoriteAgentsModules() = module {

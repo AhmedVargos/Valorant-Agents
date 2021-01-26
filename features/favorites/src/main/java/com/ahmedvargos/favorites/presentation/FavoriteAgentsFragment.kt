@@ -19,7 +19,6 @@ import com.ahmedvargos.uicomponents.view_models.AgentCellViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class FavoriteAgentsFragment : BaseFragment<FragmentFavoriteAgentsBinding>() {
 
     companion object {
@@ -34,17 +33,18 @@ class FavoriteAgentsFragment : BaseFragment<FragmentFavoriteAgentsBinding>() {
         AgentsRecyclerAdapter(agentCellActionsDelegate = agentCellViewModel)
     }
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentFavoriteAgentsBinding
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) ->
+    FragmentFavoriteAgentsBinding
         get() = FragmentFavoriteAgentsBinding::inflate
 
     override fun setup() {
-        //Setup views
+        // Setup views
         with(binding.rvAgents) {
             layoutManager = GridLayoutManager(activity, 2)
             adapter = agentsAdapter
         }
 
-        //Bind view model
+        // Bind view model
         bindViewModels()
     }
 
@@ -67,17 +67,15 @@ class FavoriteAgentsFragment : BaseFragment<FragmentFavoriteAgentsBinding>() {
                         binding.rvAgents.gone()
                         binding.tvNoFavs.visible()
                     }
-
                 }
                 Resource.Status.ERROR -> {
-                    //Show error toast & hide progress
+                    // Show error toast & hide progress
                     binding.progress.gone()
                     requireContext().showErrorDialog(
                         it.messageType?.message ?: getString(R.string.generic_error)
                     )
                 }
                 Resource.Status.NONE -> {
-
                 }
             }
         }

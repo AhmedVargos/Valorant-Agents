@@ -27,14 +27,14 @@ object Modules {
 }
 
 object Versions {
-    const val glide = "4.8.0"
+    const val gradleandroid = "4.1.1"
+    const val kotlin = "1.4.21"
     const val androidx_core = "1.3.2"
     const val androidx_lifecycle_ktx = "2.2.0"
     const val palette = "1.0.0"
     const val androidx_fragment_ktx = "1.1.0"
     const val app_compat = "1.2.0"
     const val androidx_recyclerview = "1.0.0"
-    const val androidx_navigation = "2.0.0"
     const val androidx_constraintLayout = "1.1.3"
     const val material = "1.2.1"
     const val view_pager2 = "1.0.0"
@@ -46,11 +46,13 @@ object Versions {
     const val moshi = "1.9.1"
     const val okHttp = "3.12.1"
 
+    const val ktlint = "9.2.1"
+    const val ktlint_version = "0.34.2"
+    const val glide = "4.8.0"
+
     const val junit = "4.12"
     const val androidx_espresso = "3.1.0"
     const val androidx_testing = "1.1.1"
-    const val gradleandroid = "4.1.1"
-    const val kotlin = "1.4.21"
 
     const val coroutines_android_version = "1.4.2"
     const val coroutines_test = "1.4.2"
@@ -123,6 +125,7 @@ object ClassPaths {
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation_safeargs}"
     val tools_gradleandroid = "com.android.tools.build:gradle:${Versions.gradleandroid}"
     val tools_kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+    val ktlint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktlint}"
 }
 
 object RemoteServerConfigs {

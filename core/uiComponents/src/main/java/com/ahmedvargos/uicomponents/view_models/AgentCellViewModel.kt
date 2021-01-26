@@ -14,5 +14,4 @@ class AgentCellViewModel : ViewModel(), AgentCellView.AgentCellActionsDelegate {
     override fun onCellClicked(agent: AgentInfo) {
         _openAgentDetails.postValue(agent)
     }
-
 }

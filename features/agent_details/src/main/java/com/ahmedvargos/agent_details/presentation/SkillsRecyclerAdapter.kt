@@ -8,7 +8,7 @@ import com.ahmedvargos.base.data.Ability
 import com.ahmedvargos.uicomponents.utils.loadImage
 
 class SkillsRecyclerAdapter(
-    private var skillsList: MutableList<Ability> = mutableListOf(),
+    private var skillsList: MutableList<Ability> = mutableListOf()
 ) : RecyclerView.Adapter<SkillsRecyclerAdapter.SkillViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkillViewHolder {

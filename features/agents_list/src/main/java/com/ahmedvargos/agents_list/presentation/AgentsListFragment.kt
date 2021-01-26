@@ -42,7 +42,7 @@ class AgentsListFragment : BaseFragment<FragmentAgentsListBinding>() {
         get() = FragmentAgentsListBinding::inflate
 
     override fun setup() {
-        //Setup views
+        // Setup views
         with(binding.rvAgentsList) {
             layoutManager = GridLayoutManager(activity, 2)
             adapter = agentsAdapter
@@ -56,7 +56,7 @@ class AgentsListFragment : BaseFragment<FragmentAgentsListBinding>() {
             .observe(viewLifecycleOwner) {
                 when (it.status) {
                     Resource.Status.LOADING -> {
-                        //Show loading & hide rv
+                        // Show loading & hide rv
                         it.data?.let { agents ->
                             fillAgentsWithData(agents)
                             cacheStateViewModel.updateCachedDataState(true)
@@ -70,14 +70,13 @@ class AgentsListFragment : BaseFragment<FragmentAgentsListBinding>() {
                         fillAgentsWithData(it.data)
                     }
                     Resource.Status.ERROR -> {
-                        //Show error toast & hide progress
+                        // Show error toast & hide progress
                         binding.progressView.gone()
                         requireContext().showErrorDialog(
                             it.messageType?.message ?: getString(R.string.generic_error)
                         )
                     }
                     Resource.Status.NONE -> {
-
                     }
                 }
             }

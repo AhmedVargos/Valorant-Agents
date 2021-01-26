@@ -1,14 +1,13 @@
 package com.ahmedvargos.base.utils
 
-
 object ErrorMessageHelper {
 
-    fun getMessage(code:Int): String {
-        return when(code){
-            NetworkCodes.CONNECTION_ERROR->{
+    fun getMessage(code: Int): String {
+        return when (code) {
+            NetworkCodes.CONNECTION_ERROR -> {
                 "Your connection lost check it"
             }
-            else->{
+            else -> {
                 "unknown error"
             }
         }

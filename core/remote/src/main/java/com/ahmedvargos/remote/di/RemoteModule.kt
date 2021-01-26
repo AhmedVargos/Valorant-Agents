@@ -35,5 +35,4 @@ fun getRemoteModule(baseUrl: String, isDebugBuild: Boolean) = module {
         }
 
     factory { OkHttpClient.Builder().addInterceptor(get(qualifier = named(loggerName))).build() }
-
 }

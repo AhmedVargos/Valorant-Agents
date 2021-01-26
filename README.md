@@ -15,8 +15,9 @@ Valorant Agents app is a small Multi-Module demo application to demonstrate mode
 - [JetPack](https://developer.android.com/jetpack)
   - LiveData - Notify domain layer data to views.
   - Lifecycle - Dispose of observing data when lifecycle state changes.
-  - Fragment-ktx
-  - ViewPager2
+  - Fragment-ktx - A set of Kotlin extensions that helps with fragment lifecycle.
+  - [ViewBinding](https://developer.android.com/topic/libraries/view-binding) - Allows you to more easily write code that interacts with views
+  - ViewPager2 - ViewPager2 replaces ViewPager, addressing most of its predecessor’s pain-points.
   - ViewModel - UI related data holder, lifecycle aware.
   - SharedViewModel - To make communication between fragments and host activity.
   - Room Persistence - construct a database using the abstract layer.
@@ -27,8 +28,9 @@ Valorant Agents app is a small Multi-Module demo application to demonstrate mode
   - Clean Architecture approach.
 - [Gradle KotlinDsl](https://docs.gradle.org/current/userguide/kotlin_dsl.html)
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - Construct the REST APIs.
-- [Gson](https://github.com/google/gson)
-- [Glide](https://github.com/bumptech/glide) - Loading images.
+- [Moshi](https://github.com/square/moshi) - A Modern JSON library for Android and Java.
+- [Glide](https://github.com/bumptech/glide) - For Loading images from Urls.
+- [Ktlint](https://github.com/pinterest/ktlint)- An anti-bikeshedding Kotlin linter with a built-in formatter.
 - [Material-Components](https://github.com/material-components/material-components-android) - Material design components.
 
 ## Architecture

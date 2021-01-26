@@ -7,7 +7,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
 
-
 @GlideModule
 class ValorantGlideModule : AppGlideModule() {
 
@@ -15,5 +14,4 @@ class ValorantGlideModule : AppGlideModule() {
         super.applyOptions(context, builder)
         builder.apply { RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL) }
     }
-
 }

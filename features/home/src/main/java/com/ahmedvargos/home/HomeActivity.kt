@@ -14,7 +14,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     private val agentsListFragment: AgentsListFragment by inject()
@@ -25,9 +24,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         get() = ActivityHomeBinding::inflate
 
     override fun setup() {
-        //Bind View model
+        // Bind View model
         bindViewModels()
-        //Setup Ui views
+        // Setup Ui views
         binding.vpHome.adapter =
             HomeViewPagerAdapter(this, listOf(agentsListFragment, favoriteListFragment))
 
@@ -40,7 +39,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
                 else -> getString(R.string.favorite_agents)
             }
         }.attach()
-
     }
 
     private fun bindViewModels() {

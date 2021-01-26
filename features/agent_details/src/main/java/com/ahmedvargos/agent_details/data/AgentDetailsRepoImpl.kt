@@ -19,24 +19,17 @@ class AgentDetailsRepoImpl(
             }
 
             override suspend fun saveFetchResult(data: AgentInfo?) {
-
             }
 
             override suspend fun localFetch(): AgentInfo? {
                 return localDataSource.getAgentDetails(agentId)?.let { agentEntity ->
                     agentEntity.data.apply {
-                        this.isFav = agentEntity.isFav ?: false
+                        this.isFav = agentEntity.isFav
                     }
                 }
             }
 
             override fun shouldFetch() = false
-
         }.asFlow()
-
-    }
-
-    override suspend fun toggleAgentFavState(agentId: String): Flow<Resource<Boolean>> {
-        TODO("Not yet implemented")
     }
 }

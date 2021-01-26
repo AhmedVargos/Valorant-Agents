@@ -6,5 +6,4 @@ import kotlinx.coroutines.flow.Flow
 
 interface AgentDetailsRepo {
     suspend fun getAgentDetails(agentId: String): Flow<Resource<AgentInfo?>>
-    suspend fun toggleAgentFavState(agentId: String): Flow<Resource<Boolean>>
 }

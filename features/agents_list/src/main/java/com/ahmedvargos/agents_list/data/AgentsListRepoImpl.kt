@@ -33,7 +33,6 @@ class AgentsListRepoImpl(
             }
 
             override fun shouldFetchWithLocalData() = true
-
         }.asFlow()
     }
 }

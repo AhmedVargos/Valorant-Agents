@@ -34,8 +34,15 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
         get() = ActivityAgentDetailsBinding::inflate
 
     override fun setup() {
-        //Init views
-        //Add the fav view and actions
+        // Init views
+        // Add the fav view and actions
+        attachActions()
+
+        // Binds the view model streams
+        bindViewModels(intent.extras?.getString(ActionKeys.AGENT_ID_KEY))
+    }
+
+    private fun attachActions() {
         binding.btnBack.setOnClickListener {
             finish()
         }
@@ -43,14 +50,12 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
         binding.btnFav.setOnClickListener { favBtnView ->
             with(agentDetailsViewModel.agentsDetailsStateFlow.value.data) {
                 favoriteAgentsViewModel.toggleFavoriteAgent(this?.uuid ?: "0")
+                this?.toggleFav()
                 (favBtnView as ImageButton).setImageResource(
-                    this?.isFav?.getFavoriteImage(true) ?: 0
+                    this?.isFav?.getFavoriteImage() ?: 0
                 )
             }
         }
-
-        //Binds the view model streams
-        bindViewModels(intent.extras?.getString(ActionKeys.AGENT_ID_KEY))
     }
 
     private fun bindViewModels(agentId: String?) {
@@ -100,7 +105,7 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
         GlideApp.with(this)
             .asBitmap()
             .load(bustPortrait)
-            .listener(object : RequestListener<Bitmap>{
+            .listener(object : RequestListener<Bitmap> {
                 override fun onLoadFailed(
                     e: GlideException?,
                     model: Any?,
@@ -119,29 +124,27 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
                 ): Boolean {
                     resource?.let { bitmap ->
                         Palette.from(bitmap).generate {
-                            //Use the dominant color in image
+                            // Use the dominant color in image
                             val dominantColor =
-                                it?.getMutedColor(ContextCompat.getColor(this@AgentDetailsActivity, R.color.white))
+                                it?.getMutedColor(
+                                    ContextCompat.getColor(
+                                        this@AgentDetailsActivity,
+                                        R.color.white
+                                    )
+                                )
                                     ?: 0x000
-                            binding.ivBackground.backgroundTintList = ColorStateList.valueOf(dominantColor)
+                            binding.ivBackground.backgroundTintList =
+                                ColorStateList.valueOf(dominantColor)
                         }
                     }
                     return false
                 }
-
             }).into(binding.ivAgentPic)
     }
 
-    private fun Boolean.getFavoriteImage(isReverse: Boolean = false): Int {
-        val updatedState = if (isReverse)
-            this.not()
-        else
-            this
-
-        return if (updatedState) {
-            R.drawable.iv_selected_fav
-        } else {
-            R.drawable.ic_unselected_fav_24
-        }
+    private fun Boolean.getFavoriteImage() = if (this) {
+        R.drawable.iv_selected_fav
+    } else {
+        R.drawable.ic_unselected_fav_24
     }
 }

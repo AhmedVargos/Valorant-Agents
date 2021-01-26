@@ -17,7 +17,6 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
-
 class AgentCellView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -35,11 +34,10 @@ class AgentCellView @JvmOverloads constructor(
         addView(binding.root)
     }
 
-
     fun initDetails(agentInfo: AgentInfo, actionDelegate: AgentCellActionsDelegate) {
         binding.tvAgentTitle.text = agentInfo.displayName
         binding.tvAgentRole.text = agentInfo.role?.displayName
-        //Display agent image
+        // Display agent image
         GlideApp.with(context)
             .asBitmap()
             .load(agentInfo.bustPortrait)
@@ -62,16 +60,16 @@ class AgentCellView @JvmOverloads constructor(
                 ): Boolean {
                     resource?.let { bitmap ->
                         Palette.from(bitmap).generate {
-                            //Use the dominant color in image
+                            // Use the dominant color in image
                             val dominantColor =
                                 it?.getMutedColor(ContextCompat.getColor(context, R.color.white))
                                     ?: 0x000
-                            binding.ivBackground.backgroundTintList = ColorStateList.valueOf(dominantColor)
+                            binding.ivBackground.backgroundTintList =
+                                ColorStateList.valueOf(dominantColor)
                         }
                     }
                     return false
                 }
-
             }).into(binding.ivAgentPic)
 
         binding.root.setOnClickListener {
