@@ -28,7 +28,9 @@ dependencies {
     implementation Dependencies.koin_scope
     implementation Dependencies.koin_viewModel
 
-    testImplementation Dependencies.testlib_junit
+    testImplementation Dependencies.testLibs
+    testImplementation Dependencies.moshi
+
     androidTestImplementation Dependencies.testandroidx_runner
     androidTestImplementation Dependencies.testandroidx_espressocore
 }

@@ -27,10 +27,9 @@ class FavoriteAgentsViewModel(
 
     fun getFavoriteAgents() {
         viewModelScope.launch {
-            _agentsStateFlow.value = Resource.loading()
             inquiryUseCase.invoke()
                 .collect {
-                    _agentsStateFlow.value = Resource.success(it)
+                    _agentsStateFlow.value = it
                 }
         }
     }

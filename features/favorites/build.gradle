@@ -25,6 +25,9 @@ dependencies {
     implementation Dependencies.koin
     implementation Dependencies.koin_scope
     implementation Dependencies.koin_viewModel
+    
+    testImplementation Dependencies.testLibs
+    testImplementation Dependencies.moshi
 
     testImplementation Dependencies.testlib_junit
     androidTestImplementation Dependencies.testandroidx_runner

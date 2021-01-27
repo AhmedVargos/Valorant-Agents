@@ -115,7 +115,6 @@ object Dependencies {
 
 
     val testlib_junit = "junit:junit:${Versions.junit}"
-    val testlib_junit5 = "junit:junit:${Versions.junit}"
     val testandroidx_rules = "androidx.test:rules:${Versions.androidx_testing}"
     val testandroidx_runner = "androidx.test:runner:${Versions.androidx_testing}"
     val koin_test = "org.koin:koin-test:${Versions.koin}"
@@ -152,5 +151,3 @@ object RemoteServerConfigs {
     const val DEBUG_BASE_URL = "https://valorant-api.com/v1/"
     const val RELEASE_BASE_URL = "https://valorant-api.com/v1/"
 }
-
-
