@@ -4,16 +4,18 @@ import com.ahmedvargos.agent_details.data.data_source.AgentDetailsLocalDataSourc
 import com.ahmedvargos.agent_details.domain.repo.AgentDetailsRepo
 import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.base.data.Resource
+import com.ahmedvargos.base.utils.SchedulerProvider
 import com.ahmedvargos.remote.NetworkBoundResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 
 @ExperimentalCoroutinesApi
 class AgentDetailsRepoImpl(
-    private val localDataSource: AgentDetailsLocalDataSource
+    private val localDataSource: AgentDetailsLocalDataSource,
+    private val schedulerProvider: SchedulerProvider
 ) : AgentDetailsRepo {
     override suspend fun getAgentDetails(agentId: String): Flow<Resource<AgentInfo?>> {
-        return object : NetworkBoundResource<AgentInfo?>() {
+        return object : NetworkBoundResource<AgentInfo?>(schedulerProvider) {
             override suspend fun remoteFetch(): AgentInfo? {
                 return null
             }

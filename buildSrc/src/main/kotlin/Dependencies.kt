@@ -37,9 +37,11 @@ object Versions {
     const val androidx_recyclerview = "1.0.0"
     const val androidx_constraintLayout = "1.1.3"
     const val material = "1.2.1"
+    const val room = "2.2.6"
+    const val coroutines_android_version = "1.4.2"
+
     const val view_pager2 = "1.0.0"
-    const val navigation_safeargs = "2.2.0-rc03"
-    const val KOIN = "2.0.1"
+    const val koin = "2.0.1"
 
     const val retrofit = "2.6.2"
     const val retrofitCoroutines = "0.9.2"
@@ -49,14 +51,16 @@ object Versions {
     const val ktlint = "9.2.1"
     const val ktlint_version = "0.34.2"
     const val glide = "4.8.0"
+    const val livedata_testing_lib = "1.1.2"
 
     const val junit = "4.12"
+    const val junit5 = "5.7.0"
+    const val junit_5_plugin = "1.6.2.0"
     const val androidx_espresso = "3.1.0"
     const val androidx_testing = "1.1.1"
-
-    const val coroutines_android_version = "1.4.2"
+    const val mockk = "1.10.5"
+    const val arch_core_testing = "2.1.0"
     const val coroutines_test = "1.4.2"
-    const val room = "2.2.6"
 
 
 }
@@ -86,10 +90,10 @@ object Dependencies {
 
     val coroutines_android =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_android_version}"
-    val koin = "org.koin:koin-android:${Versions.KOIN}"
-    val koin_viewModel = "org.koin:koin-androidx-viewmodel:${Versions.KOIN}"
+    val koin = "org.koin:koin-android:${Versions.koin}"
+    val koin_viewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
 
-    val koin_scope = "org.koin:koin-androidx-scope:${Versions.KOIN}"
+    val koin_scope = "org.koin:koin-androidx-scope:${Versions.koin}"
 
     //retrofit
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
@@ -111,24 +115,42 @@ object Dependencies {
 
 
     val testlib_junit = "junit:junit:${Versions.junit}"
+    val testlib_junit5 = "junit:junit:${Versions.junit}"
     val testandroidx_rules = "androidx.test:rules:${Versions.androidx_testing}"
     val testandroidx_runner = "androidx.test:runner:${Versions.androidx_testing}"
+    val koin_test = "org.koin:koin-test:${Versions.koin}"
+    val mockk = "io.mockk:mockk:${Versions.mockk}"
+    val livedata_testing = "com.jraska.livedata:testing-ktx:${Versions.livedata_testing_lib}"
+
     val testandroidx_espressocore =
         "androidx.test.espresso:espresso-core:${Versions.androidx_espresso}"
     val coroutines_testing =
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines_test}"
+    val arch_core_testing =
+        "androidx.arch.core:core-testing:${Versions.arch_core_testing}"
 
+    val testLibs = arrayOf(
+        arch_core_testing,
+        coroutines_testing,
+        mockk,
+        koin_test,
+        livedata_testing,
+        "org.junit.jupiter:junit-jupiter-api:${Versions.junit5}",
+        "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5}",
+        "org.junit.vintage:junit-vintage-engine:${Versions.junit5}"
+    )
 }
 
 object ClassPaths {
-    val navigation_safe_args =
-        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation_safeargs}"
     val tools_gradleandroid = "com.android.tools.build:gradle:${Versions.gradleandroid}"
     val tools_kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     val ktlint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktlint}"
+    val junit5 = "de.mannodermaus.gradle.plugins:android-junit5:${Versions.junit_5_plugin}"
 }
 
 object RemoteServerConfigs {
     const val DEBUG_BASE_URL = "https://valorant-api.com/v1/"
     const val RELEASE_BASE_URL = "https://valorant-api.com/v1/"
 }
+
+

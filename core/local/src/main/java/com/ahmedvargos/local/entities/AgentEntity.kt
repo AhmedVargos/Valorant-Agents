@@ -11,7 +11,3 @@ class AgentEntity(
     val data: AgentInfo,
     var isFav: Boolean = false
 )
-
-fun AgentInfo.toEntity(): AgentEntity {
-    return AgentEntity(this.uuid, this, this.isFav)
-}

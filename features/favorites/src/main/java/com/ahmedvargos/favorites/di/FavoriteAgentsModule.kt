@@ -19,7 +19,7 @@ fun getFavoriteAgentsModules() = module {
     }
 
     single<FavoriteAgentsRepo> {
-        FavoriteAgentsRepoImpl(get())
+        FavoriteAgentsRepoImpl(get(), get())
     }
 
     factory {

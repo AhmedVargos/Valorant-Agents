@@ -3,14 +3,17 @@ package com.ahmedvargos.agents_list.data.data_sources.local
 import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.local.dao.AgentsDao
 import com.ahmedvargos.local.entities.AgentEntity
-import com.ahmedvargos.local.entities.toEntity
+import com.ahmedvargos.local.mapper.AgentInfoMapper
 
-class AgentsListLocalSourceImpl(private val agentsDao: AgentsDao) : AgentsListLocalSource {
+class AgentsListLocalSourceImpl(
+    private val agentsDao: AgentsDao,
+    private val agentInfoMapper: AgentInfoMapper
+) : AgentsListLocalSource {
     override suspend fun getPopularAgents(): List<AgentEntity> {
         return agentsDao.getAll()
     }
 
     override suspend fun saveAgentsList(list: List<AgentInfo>) {
-        agentsDao.insertAll(list.map { it.toEntity() })
+        agentsDao.insertAll(list.map(agentInfoMapper::map))
     }
 }

@@ -18,7 +18,7 @@ fun getAgentDetailsModule() = module {
     }
 
     single<AgentDetailsRepo> {
-        AgentDetailsRepoImpl(get())
+        AgentDetailsRepoImpl(get(), get())
     }
 
     factory {

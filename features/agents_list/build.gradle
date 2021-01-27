@@ -1,6 +1,7 @@
 plugins {
     id "com.android.library"
     id "kotlin-android"
+    id "de.mannodermaus.android-junit5"
 }
 apply from: '..\\..\\android_library_config.gradle'
 
@@ -26,8 +27,9 @@ dependencies {
     implementation Dependencies.koin_scope
     implementation Dependencies.koin_viewModel
 
-    testImplementation Dependencies.testlib_junit
-    testImplementation Dependencies.coroutines_testing
+    testImplementation Dependencies.testLibs
+    testImplementation Dependencies.moshi
+
     androidTestImplementation Dependencies.testandroidx_runner
     androidTestImplementation Dependencies.testandroidx_espressocore
 }

@@ -2,15 +2,15 @@ package com.ahmedvargos.remote
 
 import com.ahmedvargos.base.data.FailureData
 import com.ahmedvargos.base.data.Resource
+import com.ahmedvargos.base.utils.SchedulerProvider
 import com.ahmedvargos.remote.utils.ResultWrapper
 import com.ahmedvargos.remote.utils.safeApiCall
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
 
-abstract class NetworkBoundResource<T> {
+abstract class NetworkBoundResource<T>(private val schedulerProvider: SchedulerProvider) {
 
     @ExperimentalCoroutinesApi
     fun asFlow(): Flow<Resource<T>> = flow {
@@ -20,7 +20,7 @@ abstract class NetworkBoundResource<T> {
                 emit(Resource.loading(data = localFetch()))
             }
 
-            val response = safeApiCall(dispatcher = Dispatchers.IO) {
+            val response = safeApiCall(dispatcher = schedulerProvider.io()) {
                 remoteFetch()
             }
 

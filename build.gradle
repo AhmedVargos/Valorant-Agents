@@ -11,8 +11,8 @@ buildscript {
     dependencies {
         classpath ClassPaths.tools_gradleandroid
         classpath ClassPaths.tools_kotlin
-        classpath ClassPaths.navigation_safe_args
         classpath ClassPaths.ktlint
+        classpath ClassPaths.junit5
     }
 }
 

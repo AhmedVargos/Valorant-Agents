@@ -9,6 +9,8 @@ import com.ahmedvargos.agents_list.data.data_sources.remote.AgentsListRemoteSour
 import com.ahmedvargos.agents_list.domain.repo.AgentsListRepo
 import com.ahmedvargos.agents_list.domain.usecase.AgentsListUseCase
 import com.ahmedvargos.agents_list.presentation.AgentsListViewModel
+import com.ahmedvargos.base.utils.ApplicationDispatchersProvider
+import com.ahmedvargos.base.utils.SchedulerProvider
 import com.ahmedvargos.uicomponents.view_models.AgentCellViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -22,15 +24,17 @@ fun getAgentsListModule() = module {
     }
 
     factory<AgentsListLocalSource> {
-        AgentsListLocalSourceImpl(get())
+        AgentsListLocalSourceImpl(get(), get())
     }
 
     factory<AgentsListRemoteSource> {
         AgentsListRemoteSourceImpl(get())
     }
 
+    factory<SchedulerProvider> { ApplicationDispatchersProvider() }
+
     single<AgentsListRepo> {
-        AgentsListRepoImpl(get(), get())
+        AgentsListRepoImpl(get(), get(), get(), get())
     }
 
     factory {
