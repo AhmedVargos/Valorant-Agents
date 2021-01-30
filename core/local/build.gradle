@@ -9,18 +9,14 @@ dependencies {
     implementation project(Modules.BASE)
     implementation Dependencies.kotlin_lib
     implementation Dependencies.androidx_core
-
     implementation Dependencies.coroutines_core
-
     implementation Dependencies.moshi
-
-    implementation Dependencies.koin
-    implementation Dependencies.koin_scope
-
     implementation Dependencies.roomKtx
     implementation Dependencies.roomRunTime
     kapt Dependencies.roomCompiler
 
+    implementation Dependencies.koin
+    implementation Dependencies.koin_scope
 
     testImplementation Dependencies.testlib_junit
     androidTestImplementation Dependencies.testandroidx_runner

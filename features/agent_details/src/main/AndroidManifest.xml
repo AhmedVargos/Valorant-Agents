@@ -3,7 +3,7 @@
     package="com.ahmedvargos.agent_details">
 
     <application>
-        <activity android:name=".presentation.AgentDetailsActivity">
+        <activity android:name=".presentation.AgentDetailsActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.ahmedvargos.agent_details.navigate"/>
                 <category android:name="android.intent.category.DEFAULT" />

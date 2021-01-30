@@ -14,14 +14,14 @@ abstract class NetworkBoundResource<T>(private val schedulerProvider: SchedulerP
 
     @ExperimentalCoroutinesApi
     fun asFlow(): Flow<Resource<T>> = flow {
-
+        // check if should fetch data from remote or not
         if (shouldFetch()) {
-            if (shouldFetchWithLocalData()) {
+            if (shouldFetchWithLocalData()) { // should emit cached date with loading state or not
                 emit(Resource.loading(data = localFetch()))
             }
 
             val response = safeApiCall(dispatcher = schedulerProvider.io()) {
-                remoteFetch()
+                remoteFetch() // fetch the remote source provided
             }
 
             when (response) {
@@ -42,11 +42,11 @@ abstract class NetworkBoundResource<T>(private val schedulerProvider: SchedulerP
                 }
             }
         } else {
-            // get from cash
+            // get from cache
             emit(Resource.success(data = localFetch()))
         }
     }.onStart {
-        // get From cache
+        // get from cache
         emit(Resource.loading(data = null))
     }
 

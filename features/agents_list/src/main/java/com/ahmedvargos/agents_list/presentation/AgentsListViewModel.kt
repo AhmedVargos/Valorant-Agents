@@ -17,7 +17,11 @@ class AgentsListViewModel(private val useCase: AgentsListUseCase) : ViewModel() 
 
     val agentsStateFlow: StateFlow<Resource<List<AgentInfo>>> = _agentsStateFlow
 
-    fun getPopularAgents() {
+    init {
+        getPopularAgents()
+    }
+
+    private fun getPopularAgents() {
         viewModelScope.launch {
             useCase.invoke()
                 .collect {

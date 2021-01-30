@@ -29,7 +29,10 @@ internal suspend fun <T> safeApiCall(
             throwable.printStackTrace()
             when (throwable) {
                 is TimeoutCancellationException -> {
-                    ResultWrapper.GenericError(code = NetworkCodes.TIMEOUT_ERROR)
+                    ResultWrapper.GenericError(
+                        code = NetworkCodes.TIMEOUT_ERROR,
+                        message = ErrorCodesMapper.getMessage(NetworkCodes.CONNECTION_ERROR)
+                    )
                 }
                 is IOException -> {
                     ResultWrapper.GenericError(
@@ -40,7 +43,7 @@ internal suspend fun <T> safeApiCall(
                 is HttpException -> {
                     val code = throwable.code()
                     ResultWrapper.GenericError(
-                        code, message = convertErrorBody(throwable)
+                        code = code, message = convertErrorBody(throwable)
                     )
                 }
                 else -> {

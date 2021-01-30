@@ -25,7 +25,11 @@ class FavoriteAgentsViewModel(
 
     val favAgentToggleStateFlow: StateFlow<Resource<Boolean>> = _favAgentToggleStateFlow
 
-    fun getFavoriteAgents() {
+    init {
+        getFavoriteAgents()
+    }
+
+    private fun getFavoriteAgents() {
         viewModelScope.launch {
             inquiryUseCase.invoke()
                 .collect {

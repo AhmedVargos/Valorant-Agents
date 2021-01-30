@@ -30,6 +30,7 @@ object Versions {
     const val gradleandroid = "4.1.1"
     const val kotlin = "1.4.21"
     const val androidx_core = "1.3.2"
+    const val multi_dex = "2.0.1"
     const val androidx_lifecycle_ktx = "2.2.0"
     const val palette = "1.0.0"
     const val androidx_fragment_ktx = "1.1.0"
@@ -56,8 +57,9 @@ object Versions {
     const val junit = "4.12"
     const val junit5 = "5.7.0"
     const val junit_5_plugin = "1.6.2.0"
-    const val androidx_espresso = "3.1.0"
-    const val androidx_testing = "1.1.1"
+    const val androidx_ext_junit = "1.1.1"
+    const val androidx_espresso = "3.2.0"
+    const val androidx_testing = "1.2.0"
     const val mockk = "1.10.5"
     const val arch_core_testing = "2.1.0"
     const val coroutines_test = "1.4.2"
@@ -84,6 +86,8 @@ object Dependencies {
     val androidx_viewpager2 =
         "androidx.viewpager2:viewpager2:${Versions.view_pager2}"
     val androidx_palette = "androidx.palette:palette:${Versions.palette}"
+
+    val androidx_multidex = "androidx.multidex:multidex:${Versions.multi_dex}"
 
     val coroutines_core =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines_android_version}"
@@ -115,7 +119,8 @@ object Dependencies {
 
 
     val testlib_junit = "junit:junit:${Versions.junit}"
-    val testandroidx_rules = "androidx.test:rules:${Versions.androidx_testing}"
+//    val testandroidx_rules = "androidx.test:rules:${Versions.androidx_testing}"
+    val testandroidx_junit = "androidx.test.ext:junit:${Versions.androidx_ext_junit}"
     val testandroidx_runner = "androidx.test:runner:${Versions.androidx_testing}"
     val koin_test = "org.koin:koin-test:${Versions.koin}"
     val mockk = "io.mockk:mockk:${Versions.mockk}"
@@ -134,9 +139,21 @@ object Dependencies {
         mockk,
         koin_test,
         livedata_testing,
-        "org.junit.jupiter:junit-jupiter-api:${Versions.junit5}",
-        "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5}",
-        "org.junit.vintage:junit-vintage-engine:${Versions.junit5}"
+        testlib_junit
+//        "org.junit.jupiter:junit-jupiter-api:${Versions.junit5}",
+//        "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5}",
+//        "org.junit.vintage:junit-vintage-engine:${Versions.junit5}"
+    )
+
+    val uiTestLibs = arrayOf(
+        testandroidx_espressocore,
+        testandroidx_runner,
+        testandroidx_junit,
+        arch_core_testing,
+        coroutines_testing,
+        mockk,
+        koin_test,
+        livedata_testing
     )
 }
 

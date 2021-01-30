@@ -19,7 +19,8 @@ dependencies {
     api Dependencies.glide_okhttp3
     kapt Dependencies.glide_annotations
 
-    testImplementation Dependencies.testlib_junit
-    androidTestImplementation Dependencies.testandroidx_runner
-    androidTestImplementation Dependencies.testandroidx_espressocore
+    testImplementation Dependencies.testLibs
+    testImplementation Dependencies.moshi
+
+    androidTestImplementation Dependencies.uiTestLibs
 }

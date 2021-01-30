@@ -3,7 +3,6 @@ package com.ahmedvargos.agents_list.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ahmedvargos.agents_list.R
 import com.ahmedvargos.agents_list.databinding.FragmentAgentsListBinding
@@ -84,8 +83,6 @@ class AgentsListFragment : BaseFragment<FragmentAgentsListBinding>() {
         agentCellViewModel.openAgentDetails.observe(this) {
             navigator.navigateToAgentDetailsScreen(requireContext(), agentId = it.uuid)
         }
-
-        agentsListViewModel.getPopularAgents()
     }
 
     private fun fillAgentsWithData(agents: List<AgentInfo>?) {

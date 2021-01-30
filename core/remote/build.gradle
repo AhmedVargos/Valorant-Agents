@@ -8,7 +8,6 @@ dependencies {
     implementation project(Modules.BASE)
     implementation Dependencies.kotlin_lib
     implementation Dependencies.androidx_core
-
     implementation Dependencies.coroutines_core
 
     implementation Dependencies.koin
@@ -17,11 +16,10 @@ dependencies {
     api Dependencies.retrofit
     implementation Dependencies.retrofit_coroutines_adapter
     implementation Dependencies.retrofit_moshi_converter
-    implementation Dependencies.moshi
     implementation Dependencies.retrofit_logger
+    implementation Dependencies.moshi
 
-
-    testImplementation Dependencies.testlib_junit
+    testImplementation Dependencies.testLibs
     androidTestImplementation Dependencies.testandroidx_runner
     androidTestImplementation Dependencies.testandroidx_espressocore
 }

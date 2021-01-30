@@ -1,6 +1,6 @@
 package com.ahmedvargos.valorantagents
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.ahmedvargos.agent_details.di.getAgentDetailsModule
 import com.ahmedvargos.agents_list.di.getAgentsListModule
 import com.ahmedvargos.favorites.di.getFavoriteAgentsModules
@@ -12,7 +12,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class App : Application() {
+class App : MultiDexApplication() {
 
     @ExperimentalCoroutinesApi
     override fun onCreate() {

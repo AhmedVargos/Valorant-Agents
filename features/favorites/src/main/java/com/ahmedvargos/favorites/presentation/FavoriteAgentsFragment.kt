@@ -3,7 +3,6 @@ package com.ahmedvargos.favorites.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.base.data.Resource
@@ -84,7 +83,6 @@ class FavoriteAgentsFragment : BaseFragment<FragmentFavoriteAgentsBinding>() {
             navigator.navigateToAgentDetailsScreen(requireContext(), agentId = it.uuid)
         }
 
-        favoriteAgentsViewModel.getFavoriteAgents()
     }
 
     private fun fillViewWithData(agents: List<AgentInfo>) {

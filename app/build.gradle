@@ -64,6 +64,7 @@ dependencies {
     implementation Dependencies.kotlin_lib
     implementation Dependencies.androidx_core
     implementation Dependencies.appcompat
+    implementation Dependencies.androidx_multidex
     implementation Dependencies.androidx_material
     implementation Dependencies.androidx_constraintlayout
     implementation Dependencies.coroutines_core
