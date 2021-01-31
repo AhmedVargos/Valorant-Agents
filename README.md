@@ -9,6 +9,9 @@
 </p>
 
 ![UI](https://github.com/AhmedVargos/Valorant-Agents/blob/master/screenshots/basic_design.jpg)
+<p align="center">
+  Design by: <a href="https://dribbble.com/shots/14073476-Valorant-Agents">Malik Abimanyu</a>
+</p>
 
 <p align="center">
 Valorant Agents app is a small Multi-Module demo application to demonstrate modern Android application tech-stacks with a Multi-module and MVVM architecture.
