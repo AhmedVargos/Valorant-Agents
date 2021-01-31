@@ -19,6 +19,7 @@ dependencies {
     implementation Dependencies.koin_scope
 
     testImplementation Dependencies.testlib_junit
-    androidTestImplementation Dependencies.testandroidx_runner
-    androidTestImplementation Dependencies.testandroidx_espressocore
+    androidTestImplementation Dependencies.uiTestLibs
+    androidTestImplementation Dependencies.androidx_lifecycle_ktx
+    androidTestImplementation Dependencies.androidx_fragment_ktx
 }

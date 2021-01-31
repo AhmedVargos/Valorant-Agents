@@ -9,7 +9,7 @@ import com.ahmedvargos.favorites.data.data_sources.local.FavoritesLocalDataSourc
 import com.ahmedvargos.favorites.domain.repo.FavoriteAgentsRepo
 import com.ahmedvargos.favorites.utils.createListOfAgentEntities
 import com.ahmedvargos.favorites.utils.createTempAgentList
-import com.ahmedvargos.local.mapper.AgentEntityMapper
+import com.ahmedvargos.local.mapper.AgentEntityToAgentInfoMapper
 import com.jraska.livedata.test
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -39,14 +39,14 @@ internal class FavoriteAgentsRepoImplTest : AutoCloseKoinTest() {
 
     @RelaxedMockK
     private lateinit var localDataSource: FavoritesLocalDataSource
-    private lateinit var mapper: AgentEntityMapper
+    private lateinit var toAgentInfoMapper: AgentEntityToAgentInfoMapper
 
     private val testModule = module {
         factory<SchedulerProvider> { TestDispatcherProvider() }
         factory<FavoriteAgentsRepo> {
             FavoriteAgentsRepoImpl(
                 localDataSource,
-                mapper,
+                toAgentInfoMapper,
                 get()
             )
         }
@@ -60,7 +60,7 @@ internal class FavoriteAgentsRepoImplTest : AutoCloseKoinTest() {
             modules(testModule)
         }
 
-        mapper = AgentEntityMapper()
+        toAgentInfoMapper = AgentEntityToAgentInfoMapper()
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.ahmedvargos.agents_list.presentation
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahmedvargos.agents_list.domain.usecase.AgentsListUseCase
@@ -21,7 +22,8 @@ class AgentsListViewModel(private val useCase: AgentsListUseCase) : ViewModel() 
         getPopularAgents()
     }
 
-    private fun getPopularAgents() {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun getPopularAgents() {
         viewModelScope.launch {
             useCase.invoke()
                 .collect {

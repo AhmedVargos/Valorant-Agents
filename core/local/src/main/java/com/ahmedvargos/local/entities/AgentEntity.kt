@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.ahmedvargos.base.data.AgentInfo
 
 @Entity(tableName = "agent_entity")
-class AgentEntity(
+data class AgentEntity(
     @PrimaryKey
     val id: String,
     val data: AgentInfo,

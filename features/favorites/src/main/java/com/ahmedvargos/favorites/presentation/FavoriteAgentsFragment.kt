@@ -78,11 +78,9 @@ class FavoriteAgentsFragment : BaseFragment<FragmentFavoriteAgentsBinding>() {
                 }
             }
         }
-
         agentCellViewModel.openAgentDetails.observe(this) {
             navigator.navigateToAgentDetailsScreen(requireContext(), agentId = it.uuid)
         }
-
     }
 
     private fun fillViewWithData(agents: List<AgentInfo>) {

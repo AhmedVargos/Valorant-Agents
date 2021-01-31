@@ -27,7 +27,7 @@ object Modules {
 }
 
 object Versions {
-    const val gradleandroid = "4.1.1"
+    const val gradle_android = "4.1.1"
     const val kotlin = "1.4.21"
     const val androidx_core = "1.3.2"
     const val multi_dex = "2.0.1"
@@ -55,16 +55,12 @@ object Versions {
     const val livedata_testing_lib = "1.1.2"
 
     const val junit = "4.12"
-    const val junit5 = "5.7.0"
-    const val junit_5_plugin = "1.6.2.0"
     const val androidx_ext_junit = "1.1.1"
     const val androidx_espresso = "3.2.0"
     const val androidx_testing = "1.2.0"
     const val mockk = "1.10.5"
     const val arch_core_testing = "2.1.0"
     const val coroutines_test = "1.4.2"
-
-
 }
 
 object Dependencies {
@@ -117,9 +113,7 @@ object Dependencies {
     val roomRunTime = "androidx.room:room-runtime:${Versions.room}"
     val roomKtx = "androidx.room:room-ktx:${Versions.room}"
 
-
     val testlib_junit = "junit:junit:${Versions.junit}"
-//    val testandroidx_rules = "androidx.test:rules:${Versions.androidx_testing}"
     val testandroidx_junit = "androidx.test.ext:junit:${Versions.androidx_ext_junit}"
     val testandroidx_runner = "androidx.test:runner:${Versions.androidx_testing}"
     val koin_test = "org.koin:koin-test:${Versions.koin}"
@@ -140,9 +134,6 @@ object Dependencies {
         koin_test,
         livedata_testing,
         testlib_junit
-//        "org.junit.jupiter:junit-jupiter-api:${Versions.junit5}",
-//        "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5}",
-//        "org.junit.vintage:junit-vintage-engine:${Versions.junit5}"
     )
 
     val uiTestLibs = arrayOf(
@@ -158,10 +149,9 @@ object Dependencies {
 }
 
 object ClassPaths {
-    val tools_gradleandroid = "com.android.tools.build:gradle:${Versions.gradleandroid}"
+    val tools_gradleandroid = "com.android.tools.build:gradle:${Versions.gradle_android}"
     val tools_kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     val ktlint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktlint}"
-    val junit5 = "de.mannodermaus.gradle.plugins:android-junit5:${Versions.junit_5_plugin}"
 }
 
 object RemoteServerConfigs {

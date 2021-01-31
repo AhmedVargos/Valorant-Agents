@@ -1,5 +1,6 @@
 package com.ahmedvargos.favorites.presentation
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahmedvargos.base.data.AgentInfo
@@ -29,7 +30,8 @@ class FavoriteAgentsViewModel(
         getFavoriteAgents()
     }
 
-    private fun getFavoriteAgents() {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun getFavoriteAgents() {
         viewModelScope.launch {
             inquiryUseCase.invoke()
                 .collect {

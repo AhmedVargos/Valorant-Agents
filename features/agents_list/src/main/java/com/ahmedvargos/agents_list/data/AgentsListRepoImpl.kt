@@ -6,7 +6,7 @@ import com.ahmedvargos.agents_list.domain.repo.AgentsListRepo
 import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.utils.SchedulerProvider
-import com.ahmedvargos.local.mapper.AgentEntityMapper
+import com.ahmedvargos.local.mapper.AgentEntityToAgentInfoMapper
 import com.ahmedvargos.remote.NetworkBoundResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 class AgentsListRepoImpl(
     private val remoteSource: AgentsListRemoteSource,
     private val localSource: AgentsListLocalSource,
-    private val mapper: AgentEntityMapper,
+    private val toAgentInfoMapper: AgentEntityToAgentInfoMapper,
     private val schedulerProvider: SchedulerProvider
 ) : AgentsListRepo {
     override suspend fun getPopularAgents(): Flow<Resource<List<AgentInfo>>> {
@@ -29,7 +29,7 @@ class AgentsListRepoImpl(
             }
 
             override suspend fun localFetch(): List<AgentInfo> {
-                return localSource.getPopularAgents().map(mapper::map)
+                return localSource.getPopularAgents().map(toAgentInfoMapper::map)
             }
 
             override fun shouldFetchWithLocalData() = true

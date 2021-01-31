@@ -10,7 +10,7 @@ import com.ahmedvargos.agents_list.utils.createListOfAgents
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.utils.SchedulerProvider
 import com.ahmedvargos.base.utils.TestDispatcherProvider
-import com.ahmedvargos.local.mapper.AgentEntityMapper
+import com.ahmedvargos.local.mapper.AgentEntityToAgentInfoMapper
 import com.jraska.livedata.test
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -42,7 +42,7 @@ internal class AgentsListRepoImplTest : AutoCloseKoinTest() {
 
     @RelaxedMockK
     private lateinit var remoteDataSource: AgentsListRemoteSource
-    private lateinit var mapper: AgentEntityMapper
+    private lateinit var toAgentInfoMapper: AgentEntityToAgentInfoMapper
 
     private val testModule = module {
         factory<SchedulerProvider> { TestDispatcherProvider() }
@@ -50,7 +50,7 @@ internal class AgentsListRepoImplTest : AutoCloseKoinTest() {
             AgentsListRepoImpl(
                 remoteDataSource,
                 localDataSource,
-                mapper,
+                toAgentInfoMapper,
                 get()
             )
         }
@@ -64,7 +64,7 @@ internal class AgentsListRepoImplTest : AutoCloseKoinTest() {
             modules(testModule)
         }
 
-        mapper = AgentEntityMapper()
+        toAgentInfoMapper = AgentEntityToAgentInfoMapper()
     }
 
     @Test
