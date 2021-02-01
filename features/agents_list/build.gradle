@@ -26,9 +26,14 @@ dependencies {
     implementation Dependencies.koin_scope
     implementation Dependencies.koin_viewModel
 
+    debugImplementation Dependencies.fragments_testing
+    debugImplementation Dependencies.androidx_testing_core
+
     testImplementation Dependencies.testLibs
     testImplementation Dependencies.moshi
 
-    androidTestImplementation Dependencies.testandroidx_runner
-    androidTestImplementation Dependencies.testandroidx_espressocore
+    androidTestImplementation Dependencies.uiTestLibs
+    androidTestImplementation(Dependencies.barista) {
+        exclude group: 'org.jetbrains.kotlin'
+    }
 }

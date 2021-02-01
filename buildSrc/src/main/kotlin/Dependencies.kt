@@ -10,11 +10,12 @@ object Config {
     val javaVersion = JavaVersion.VERSION_1_8
     const val jvmTarget = "1.8"
     const val buildTools = "30.0.2"
-    const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    const val testInstrumentationRunner = "com.ahmedvargos.base.application.TestAppJUnitRunner"
     const val proguardFiles = "consumer-rules.pro"
 }
 
 object Modules {
+    const val APP = ":app"
     const val REMOTE = ":core:remote"
     const val LOCAL = ":core:local"
     const val BASE = ":core:base"
@@ -56,8 +57,10 @@ object Versions {
 
     const val junit = "4.12"
     const val androidx_ext_junit = "1.1.1"
-    const val androidx_espresso = "3.2.0"
     const val androidx_testing = "1.2.0"
+    const val testing_core = "1.3.0-alpha03"
+    const val barista = "3.7.0"
+    const val fragments_testing = "1.2.0-rc03"
     const val mockk = "1.10.5"
     const val arch_core_testing = "2.1.0"
     const val coroutines_test = "1.4.2"
@@ -116,16 +119,19 @@ object Dependencies {
     val testlib_junit = "junit:junit:${Versions.junit}"
     val testandroidx_junit = "androidx.test.ext:junit:${Versions.androidx_ext_junit}"
     val testandroidx_runner = "androidx.test:runner:${Versions.androidx_testing}"
+    val testandroidx_rules = "androidx.test:rules:${Versions.androidx_testing}"
+    val fragments_testing = "androidx.fragment:fragment-testing:${Versions.fragments_testing}"
+    val androidx_testing_core = "androidx.test:core:${Versions.testing_core}"
     val koin_test = "org.koin:koin-test:${Versions.koin}"
     val mockk = "io.mockk:mockk:${Versions.mockk}"
+    val mockk_android = "io.mockk:mockk-android:${Versions.mockk}"
     val livedata_testing = "com.jraska.livedata:testing-ktx:${Versions.livedata_testing_lib}"
-
-    val testandroidx_espressocore =
-        "androidx.test.espresso:espresso-core:${Versions.androidx_espresso}"
     val coroutines_testing =
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines_test}"
     val arch_core_testing =
         "androidx.arch.core:core-testing:${Versions.arch_core_testing}"
+    val barista =
+        "com.schibsted.spain:barista:${Versions.barista}"
 
     val testLibs = arrayOf(
         arch_core_testing,
@@ -137,12 +143,12 @@ object Dependencies {
     )
 
     val uiTestLibs = arrayOf(
-        testandroidx_espressocore,
         testandroidx_runner,
         testandroidx_junit,
+        testandroidx_rules,
         arch_core_testing,
         coroutines_testing,
-        mockk,
+        mockk_android,
         koin_test,
         livedata_testing
     )

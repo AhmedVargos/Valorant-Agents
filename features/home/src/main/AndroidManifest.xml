@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ahmedvargos.home">
 
-    <application>
+    <application
+        android:theme="@style/Theme.ValorantAgents">
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="com.ahmedvargos.home.navigate"/>

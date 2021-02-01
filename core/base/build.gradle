@@ -11,10 +11,10 @@ dependencies {
     implementation Dependencies.androidx_material
     implementation Dependencies.androidx_constraintlayout
     implementation Dependencies.coroutines_core
-    implementation Dependencies.moshi
+    api Dependencies.moshi
     implementation Dependencies.coroutines_testing
+    implementation Dependencies.koin
 
     testImplementation Dependencies.testlib_junit
-    androidTestImplementation Dependencies.testandroidx_runner
-    androidTestImplementation Dependencies.testandroidx_espressocore
+    androidTestImplementation Dependencies.uiTestLibs
 }

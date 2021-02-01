@@ -32,5 +32,4 @@ dependencies {
     testImplementation Dependencies.moshi
 
     androidTestImplementation Dependencies.testandroidx_runner
-    androidTestImplementation Dependencies.testandroidx_espressocore
 }

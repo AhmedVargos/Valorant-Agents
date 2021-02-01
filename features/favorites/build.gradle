@@ -31,5 +31,4 @@ dependencies {
 
     testImplementation Dependencies.testlib_junit
     androidTestImplementation Dependencies.testandroidx_runner
-    androidTestImplementation Dependencies.testandroidx_espressocore
 }

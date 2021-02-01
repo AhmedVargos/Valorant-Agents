@@ -36,4 +36,8 @@ android {
         exclude "**/attach_hotspot_windows.dll"
         exclude 'META-INF/licenses/ASM'
     }
+    //Adds the common UI test files from the Base module to include it in all other modules
+    sourceSets {
+        androidTest.java.srcDirs += ["${project(Modules.BASE).projectDir}/src/androidTest/java"]
+    }
 }

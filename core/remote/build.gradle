@@ -21,5 +21,4 @@ dependencies {
 
     testImplementation Dependencies.testLibs
     androidTestImplementation Dependencies.testandroidx_runner
-    androidTestImplementation Dependencies.testandroidx_espressocore
 }
