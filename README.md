@@ -42,6 +42,7 @@ Valorant Agents app is a small Multi-Module demo application to demonstrate mode
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - Construct the REST APIs.
 - [Moshi](https://github.com/square/moshi) - A Modern JSON library for Android and Java.
 - [Glide](https://github.com/bumptech/glide) - For Loading images from Urls.
+- [Barista](https://github.com/AdevintaSpain/Barista) - Barista makes developing UI test faster, easier and more predictable.
 - [Ktlint](https://github.com/pinterest/ktlint)- An anti-bikeshedding Kotlin linter with a built-in formatter.
 - [Material-Components](https://github.com/material-components/material-components-android) - Material design components.
 
@@ -74,7 +75,7 @@ Valorant-api provides an extensive API containing data of most in-game items, as
 
 [x] Implementing all features
 
-[-] Writing test cases
+[x] Writing test cases
 
 # License
 ```xml

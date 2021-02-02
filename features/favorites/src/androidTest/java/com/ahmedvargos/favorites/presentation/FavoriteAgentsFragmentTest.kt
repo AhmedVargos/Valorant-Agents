@@ -1,4 +1,4 @@
-package com.ahmedvargos.agents_list.presentation
+package com.ahmedvargos.favorites.presentation
 
 import android.app.Activity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -8,11 +8,12 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.ahmedvargos.agents_list.R
 import com.ahmedvargos.agents_list.presentation.utils.createListOfAgentsUI
 import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.base.data.FailureData
 import com.ahmedvargos.base.data.Resource
+import com.ahmedvargos.favorites.R
+import com.ahmedvargos.navigator.NavigationActions
 import com.ahmedvargos.navigator.di.getNavigatorModule
 import com.ahmedvargos.uicomponents.view_models.AgentCellViewModel
 import com.schibsted.spain.barista.assertion.BaristaListAssertions.assertDisplayedAtPosition
@@ -22,7 +23,6 @@ import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertN
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.verifySequence
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.hamcrest.CoreMatchers
@@ -40,18 +40,19 @@ import org.koin.test.KoinTest
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4ClassRunner::class)
-class AgentsListFragmentTest : KoinTest {
+class FavoriteAgentsFragmentTest : KoinTest {
+
     @get:Rule
     val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
-
-    @RelaxedMockK
-    private lateinit var cachedViewModel: CacheStateSharedViewModel
 
     @RelaxedMockK
     private lateinit var agentCellViewModel: AgentCellViewModel
 
     @RelaxedMockK
-    private lateinit var agentsListViewModel: AgentsListViewModel
+    private lateinit var favoriteAgentsViewModel: FavoriteAgentsViewModel
+
+    @RelaxedMockK
+    private lateinit var navigator: NavigationActions
 
     /**
      * Mock modules for all the injections in the HomeActivity, AgentsList and
@@ -59,83 +60,93 @@ class AgentsListFragmentTest : KoinTest {
      */
     private val testModule = module {
         viewModel(override = true) {
-            cachedViewModel
-        }
-        viewModel(override = true) {
             agentCellViewModel
         }
         viewModel(override = true) {
-            agentsListViewModel
+            favoriteAgentsViewModel
+        }
+        single(override = true) {
+            navigator
         }
     }
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        loadKoinModules(listOf(testModule, getNavigatorModule()))
+        loadKoinModules(listOf(getNavigatorModule(), testModule))
     }
 
     @After
     fun teardown() {
-        unloadKoinModules(listOf(testModule, getNavigatorModule()))
+        unloadKoinModules(listOf(getNavigatorModule(), testModule))
     }
 
     @Test
-    fun givenListOfAgents_ThenShouldShowLoadingThenListOfAgents() {
+    fun givenFavoriteListOfAgents_ThenShouldShowLoadingThenListOfAgents() {
         // Arrange
         val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.loading())
-        every { agentsListViewModel.agentsStateFlow } returns testMutableStateFlow
+        every { favoriteAgentsViewModel.agentsStateFlow } returns testMutableStateFlow
         val expectedList = createListOfAgentsUI()
         // Act
-        launchFragmentInContainer<AgentsListFragment>()
+        launchFragmentInContainer<FavoriteAgentsFragment>()
         // Assert
-        assertDisplayed(R.id.progressView)
-        assertNotDisplayed(R.id.rvAgentsList)
+        assertDisplayed(R.id.progress)
+        assertNotDisplayed(R.id.rvAgents)
+        assertNotDisplayed(R.id.tvNoFavs)
         // Act
         testMutableStateFlow.value = Resource.success(expectedList)
         // Assert
-        assertNotDisplayed(R.id.progressView)
-        assertDisplayed(R.id.rvAgentsList)
-        assertRecyclerViewItemCount(R.id.rvAgentsList, expectedItemCount = expectedList.size)
+        assertNotDisplayed(R.id.progress)
+        assertNotDisplayed(R.id.tvNoFavs)
+        assertDisplayed(R.id.rvAgents)
+        assertRecyclerViewItemCount(R.id.rvAgents, expectedItemCount = expectedList.size)
         assertDisplayedAtPosition(
-            R.id.rvAgentsList,
+            R.id.rvAgents,
             0, R.id.tvAgentTitle,
             expectedList[0].displayName
         )
     }
 
     @Test
-    fun givenCachedListOfAgents_ThenShouldSetCachedStreamToTrue() {
+    fun givenEmptyFavoritesList_ThenShouldShowLoadingThenNoFavsText() {
         // Arrange
-        val testMutableStateFlow = MutableStateFlow(
-            Resource.loading(
-                createListOfAgentsUI()
-            )
-        )
-        every { agentsListViewModel.agentsStateFlow } returns testMutableStateFlow
+        val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.loading())
+        every { favoriteAgentsViewModel.agentsStateFlow } returns testMutableStateFlow
+        val expectedList = mutableListOf<AgentInfo>()
         // Act
-        launchFragmentInContainer<AgentsListFragment>()
+        launchFragmentInContainer<FavoriteAgentsFragment>()
         // Assert
-        verifySequence {
-            cachedViewModel.updateCachedDataState(true)
-        }
+        assertDisplayed(R.id.progress)
+        assertNotDisplayed(R.id.rvAgents)
+        assertNotDisplayed(R.id.tvNoFavs)
+        // Act
+        testMutableStateFlow.value = Resource.success(expectedList)
+        // Assert
+        assertNotDisplayed(R.id.progress)
+        assertNotDisplayed(R.id.rvAgents)
+        assertDisplayed(R.id.tvNoFavs)
     }
 
     @Test
-    fun givenError_ThenShouldShowLoadingThenErrorToast() {
+    fun givenError_ThenShouldShowLoadingThenError() {
         // Arrange
         val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.loading())
-        every { agentsListViewModel.agentsStateFlow } returns testMutableStateFlow
+        every { favoriteAgentsViewModel.agentsStateFlow } returns testMutableStateFlow
         val errorScript = "Test Error"
         // Act
-        val scenario = launchFragmentInContainer<AgentsListFragment>()
+        val scenario = launchFragmentInContainer<FavoriteAgentsFragment>()
         // Assert
-        assertDisplayed(R.id.progressView)
-        assertNotDisplayed(R.id.rvAgentsList)
+        assertDisplayed(R.id.progress)
+        assertNotDisplayed(R.id.rvAgents)
+        assertNotDisplayed(R.id.tvNoFavs)
         // Act
-        testMutableStateFlow.value = Resource.error(FailureData(999, errorScript))
+        testMutableStateFlow.value = Resource.error(
+            FailureData(999, errorScript)
+        )
         // Assert
-        assertNotDisplayed(R.id.progressView)
+        assertNotDisplayed(R.id.progress)
+        assertNotDisplayed(R.id.rvAgents)
+        assertNotDisplayed(R.id.tvNoFavs)
 
         var scenarioActivity: Activity? = null
         scenario.onFragment { fragment ->

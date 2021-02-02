@@ -31,5 +31,7 @@ dependencies {
     testImplementation Dependencies.testLibs
     testImplementation Dependencies.moshi
 
-    androidTestImplementation Dependencies.testandroidx_runner
-}
+    androidTestImplementation Dependencies.uiTestLibs
+    androidTestImplementation(Dependencies.barista) {
+        exclude group: 'org.jetbrains.kotlin'
+    }}

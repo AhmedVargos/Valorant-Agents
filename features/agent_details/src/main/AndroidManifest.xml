@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ahmedvargos.agent_details">
 
-    <application>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:theme="@style/Theme.ValorantAgents">
         <activity android:name=".presentation.AgentDetailsActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.ahmedvargos.agent_details.navigate"/>

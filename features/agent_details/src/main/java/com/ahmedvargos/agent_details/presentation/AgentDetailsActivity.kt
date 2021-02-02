@@ -62,7 +62,7 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
         agentDetailsViewModel.agentsDetailsStateFlow.asLiveData().observe(this) {
             when (it.status) {
                 Resource.Status.LOADING -> {
-                    binding.progress.gone()
+                    binding.progress.visible()
                 }
                 Resource.Status.SUCCESS -> {
                     binding.progress.gone()
