@@ -2,7 +2,6 @@ package com.ahmedvargos.agent_details.presentation
 
 import android.app.Activity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.assertion.ViewAssertions
@@ -18,7 +17,6 @@ import com.schibsted.spain.barista.assertion.BaristaListAssertions
 import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
-import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
@@ -76,18 +74,6 @@ class AgentDetailsActivityTest : KoinTest {
         ActivityScenario.launch(AgentDetailsActivity::class.java)
         // Assert
         assertDisplayed(R.id.btnBack)
-    }
-
-    @Test
-    fun whenBackBtnIsClicked_ThenNavigateBack() {
-        // Act
-        val scenario = ActivityScenario.launch(AgentDetailsActivity::class.java)
-        // Assert
-        assertDisplayed(R.id.btnBack)
-        // Act
-        clickOn(R.id.btnBack)
-        // Assert
-        assert(scenario.state == Lifecycle.State.DESTROYED)
     }
 
     @Test

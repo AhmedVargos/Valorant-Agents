@@ -47,7 +47,7 @@ internal class FavoriteAgentsViewModelTest {
     @Test
     fun `Given valid list of agents, when invoke, then loading - success`() = runBlockingTest {
         // Arrange
-        coEvery { inquiryUseCase.invoke() } returns createTempEmissionsFlow(true)
+        coEvery { inquiryUseCase() } returns createTempEmissionsFlow(true)
         val resultLiveData = viewModel.agentsStateFlow.asLiveData().test()
         val expectedAgentsList = createTempAgentList()
         // Act
@@ -63,7 +63,7 @@ internal class FavoriteAgentsViewModelTest {
     @Test
     fun `Given invalid list of agents, when invoke, then loading - error`() = runBlockingTest {
         // Arrange
-        coEvery { inquiryUseCase.invoke() } returns createTempEmissionsFlow(false)
+        coEvery { inquiryUseCase() } returns createTempEmissionsFlow(false)
         val resultLiveData = viewModel.agentsStateFlow.asLiveData().test()
         // Act
         viewModel.getFavoriteAgents()
@@ -78,7 +78,7 @@ internal class FavoriteAgentsViewModelTest {
     @Test
     fun `Given toggle success, when invoke, then loading - success`() = runBlockingTest {
         // Arrange
-        coEvery { toggleUseCase.invoke("1234") } returns
+        coEvery { toggleUseCase("1234") } returns
                 createTempBoolEmissionsFlow(true)
         val resultLiveData = viewModel.favAgentToggleStateFlow.asLiveData().test()
         // Act
@@ -94,7 +94,7 @@ internal class FavoriteAgentsViewModelTest {
     @Test
     fun `Given invalid agentId error, when invoke, then loading - error`() = runBlockingTest {
         // Arrange
-        coEvery { toggleUseCase.invoke("-1") } returns
+        coEvery { toggleUseCase("-1") } returns
                 createTempBoolEmissionsFlow(false)
         val resultLiveData = viewModel.favAgentToggleStateFlow.asLiveData().test()
         // Act

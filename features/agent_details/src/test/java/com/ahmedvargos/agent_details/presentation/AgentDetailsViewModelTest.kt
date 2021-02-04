@@ -43,7 +43,7 @@ internal class AgentDetailsViewModelTest {
     @Test
     fun `Given valid agentId, when invoke, then loading - success`() = runBlockingTest {
         // Arrange
-        coEvery { usecase.invoke("1234") } returns createTempEmissionsFlow(true)
+        coEvery { usecase("1234") } returns createTempEmissionsFlow(true)
         val resultLiveData = viewModel.agentsDetailsStateFlow.asLiveData().test()
         val expectedAgentResult = createTempAgent()
         // Act
@@ -60,7 +60,7 @@ internal class AgentDetailsViewModelTest {
     @Test
     fun `Given invalid agentId, when invoke, then loading - error`() = runBlockingTest {
         // Arrange
-        coEvery { usecase.invoke("-1") } returns createTempEmissionsFlow(false)
+        coEvery { usecase("-1") } returns createTempEmissionsFlow(false)
         val resultLiveData = viewModel.agentsDetailsStateFlow.asLiveData().test()
         // Act
         viewModel.getAgentDetails("-1")

@@ -25,7 +25,7 @@ class AgentsListViewModel(private val useCase: AgentsListUseCase) : ViewModel() 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun getPopularAgents() {
         viewModelScope.launch {
-            useCase.invoke()
+            useCase()
                 .collect {
                     _agentsStateFlow.value = it
                 }

@@ -48,7 +48,7 @@ internal class AgentDetailsUseCaseTest {
                     createTempEmissionsFlow(true)
             val expectedAgentResult = createTempAgent()
             // Act
-            val resultLiveData = useCase.invoke("1234").asLiveData().test()
+            val resultLiveData = useCase("1234").asLiveData().test()
             // Assert
             resultLiveData.assertHistorySize(2)
                 .assertValueHistory(
@@ -65,7 +65,7 @@ internal class AgentDetailsUseCaseTest {
                     createTempEmissionsFlow(false)
             val expectedAgentResult = createTempAgent()
             // Act
-            val resultLiveData = useCase.invoke("-1").asLiveData().test()
+            val resultLiveData = useCase("-1").asLiveData().test()
             // Assert
             resultLiveData.assertHistorySize(2)
                 .assertValueHistory(

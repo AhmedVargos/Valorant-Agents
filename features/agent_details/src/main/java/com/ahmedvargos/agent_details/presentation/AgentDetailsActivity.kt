@@ -79,6 +79,7 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
                     )
                 }
                 Resource.Status.NONE -> {
+                    binding.progress.gone()
                 }
             }
         }

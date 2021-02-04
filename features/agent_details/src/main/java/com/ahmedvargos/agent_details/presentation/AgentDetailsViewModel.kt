@@ -12,10 +12,10 @@ import kotlinx.coroutines.launch
 
 class AgentDetailsViewModel(private val useCase: AgentDetailsUseCase) : ViewModel() {
 
-    private val _agentsDetailsStateFlow: MutableStateFlow<Resource<AgentInfo?>> =
+    private val _agentsDetailsStateFlow: MutableStateFlow<Resource<AgentInfo>> =
         MutableStateFlow(Resource.none())
 
-    val agentsDetailsStateFlow: StateFlow<Resource<AgentInfo?>> = _agentsDetailsStateFlow
+    val agentsDetailsStateFlow: StateFlow<Resource<AgentInfo>> = _agentsDetailsStateFlow
 
     fun getAgentDetails(agentId: String) {
         viewModelScope.launch {

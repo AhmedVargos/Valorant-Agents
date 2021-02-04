@@ -46,7 +46,7 @@ internal class AgentsListUseCaseTest {
             coEvery { agentsRepo.getPopularAgents() } returns createTempEmissionsFlow(true)
             val expectedAgentsList = createListOfAgents()
             // Act
-            val resultLiveData = useCase.invoke().asLiveData().test()
+            val resultLiveData = useCase().asLiveData().test()
             // Assert
             resultLiveData.assertHistorySize(2)
                 .assertValue {
@@ -62,7 +62,7 @@ internal class AgentsListUseCaseTest {
             coEvery { agentsRepo.getPopularAgents() } returns
                     createTempEmissionsFlow(false)
             // Act
-            val resultLiveData = useCase.invoke().asLiveData().test()
+            val resultLiveData = useCase().asLiveData().test()
             // Assert
             resultLiveData.assertHistorySize(2)
                 .assertValue {

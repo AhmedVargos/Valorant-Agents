@@ -46,7 +46,7 @@ internal class FavoriteAgentsToggleUseCaseTest {
             coEvery { favsRepo.toggleFavoriteAgent("1234") } returns
                     createTempBoolEmissionsFlow(true)
             // Act
-            val resultLiveData = useCase.invoke("1234").asLiveData().test()
+            val resultLiveData = useCase("1234").asLiveData().test()
             // Assert
             resultLiveData.assertHistorySize(2)
                 .assertValueHistory(
@@ -62,7 +62,7 @@ internal class FavoriteAgentsToggleUseCaseTest {
             coEvery { favsRepo.toggleFavoriteAgent("-1") } returns
                     createTempBoolEmissionsFlow(false)
             // Act
-            val resultLiveData = useCase.invoke("-1").asLiveData().test()
+            val resultLiveData = useCase("-1").asLiveData().test()
             // Assert
             resultLiveData.assertHistorySize(2)
                 .assertValueHistory(

@@ -43,7 +43,7 @@ class AgentsListViewModelTest {
     fun `Given a valid agents list, when getPopularAgents(), then receive loading then success`() =
         runBlockingTest {
             // Arrange
-            coEvery { agentsListUseCase.invoke() } returns createTempEmissionsFlow(true)
+            coEvery { agentsListUseCase() } returns createTempEmissionsFlow(true)
             val resultLiveData = viewModel.agentsStateFlow.asLiveData().test()
             val expectedAgentsList = createListOfAgents()
             // Act
@@ -60,7 +60,7 @@ class AgentsListViewModelTest {
     fun `Given an error, when getPopularAgents(), then receive loading then error`() =
         runBlockingTest {
             // Arrange
-            coEvery { agentsListUseCase.invoke() } returns createTempEmissionsFlow(false)
+            coEvery { agentsListUseCase() } returns createTempEmissionsFlow(false)
             val resultLiveData = viewModel.agentsStateFlow.asLiveData().test()
             // Act
             viewModel.getPopularAgents()

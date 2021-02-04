@@ -50,7 +50,7 @@ internal class FavoriteAgentsInquiryUseCaseTest {
                     }
             val expectedAgentsList = createTempAgentList()
             // Act
-            val resultLiveData = useCase.invoke().asLiveData().test()
+            val resultLiveData = useCase().asLiveData().test()
             // Assert
             resultLiveData.assertHistorySize(2)
                 .assertValueHistory(
@@ -66,7 +66,7 @@ internal class FavoriteAgentsInquiryUseCaseTest {
             coEvery { favsRepo.getFavoriteAgents() } returns
                     flow { emit(mutableListOf<AgentInfo>()) }
             // Act
-            val resultLiveData = useCase.invoke().asLiveData().test()
+            val resultLiveData = useCase().asLiveData().test()
             // Assert
             resultLiveData.assertHistorySize(2)
                 .assertValueHistory(

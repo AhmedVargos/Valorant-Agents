@@ -33,7 +33,7 @@ class FavoriteAgentsViewModel(
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun getFavoriteAgents() {
         viewModelScope.launch {
-            inquiryUseCase.invoke()
+            inquiryUseCase()
                 .collect {
                     _agentsStateFlow.value = it
                 }
@@ -42,7 +42,7 @@ class FavoriteAgentsViewModel(
 
     fun toggleFavoriteAgent(agentId: String) {
         viewModelScope.launch {
-            toggleUseCase.invoke(agentId)
+            toggleUseCase(agentId)
                 .collect {
                     _favAgentToggleStateFlow.value = it
                 }
