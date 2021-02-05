@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-Valorant Agents app is a small Multi-Module demo application to demonstrate modern Android application tech-stacks with a Multi-module and MVVM architecture.
+Valorant Agents app is a small Multi-Module demo application to demonstrate modern Android application tech-stacks with a Multi-module and MVVM architecture, with emphasize on Unit & UI testing.
 </p>
 
 ## Tech stack & Open-source libraries
