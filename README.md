@@ -71,11 +71,11 @@ Valorant Agents uses the [Valorant-api](https://dash.valorant-api.com/) for requ
 Valorant-api provides an extensive API containing data of most in-game items, assets and more!
 
 ## Tasks
-[x] Creating the project structure
+- [x] Creating the project structure
 
-[x] Implementing all features
+- [x] Implementing all features
 
-[x] Writing test cases
+- [x] Writing test cases
 
 # License
 ```xml
