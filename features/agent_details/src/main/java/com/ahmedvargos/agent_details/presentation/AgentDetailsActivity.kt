@@ -100,7 +100,8 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
     private fun handleFavAction(favBtnView: View?) {
         if (agentDetailsViewModel.agentsDetailsStateFlow.value is Resource.Success<*>) {
             val agentInfoData =
-                (agentDetailsViewModel.agentsDetailsStateFlow.value as Resource.Success<AgentInfo>).data
+                (agentDetailsViewModel.agentsDetailsStateFlow.value
+                        as Resource.Success<AgentInfo>).data
             with(agentInfoData) {
                 favoriteAgentsViewModel.toggleFavoriteAgent(this?.uuid ?: "0")
                 this?.toggleFav()

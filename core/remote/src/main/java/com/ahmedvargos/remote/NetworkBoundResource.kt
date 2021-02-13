@@ -9,7 +9,6 @@ import com.ahmedvargos.remote.utils.safeApiCall
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onStart
 
 abstract class NetworkBoundResource<T>(private val schedulerProvider: SchedulerProvider) {
 
