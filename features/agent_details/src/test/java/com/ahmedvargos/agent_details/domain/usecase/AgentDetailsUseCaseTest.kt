@@ -6,6 +6,7 @@ import com.ahmedvargos.agent_details.domain.repo.AgentDetailsRepo
 import com.ahmedvargos.agent_details.utils.createTempAgent
 import com.ahmedvargos.agent_details.utils.createTempEmissionsFlow
 import com.ahmedvargos.agent_details.utils.createTempFailureData
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.Resource
 import com.jraska.livedata.test
 import io.mockk.MockKAnnotations
@@ -50,10 +51,9 @@ internal class AgentDetailsUseCaseTest {
             // Act
             val resultLiveData = useCase("1234").asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
+            resultLiveData.assertHistorySize(1)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.success(expectedAgentResult)
+                    Resource.Success(expectedAgentResult, DataSource.CACHE)
                 )
         }
 
@@ -63,14 +63,12 @@ internal class AgentDetailsUseCaseTest {
             // Arrange
             coEvery { agentDetailsRepo.getAgentDetails("-1") } returns
                     createTempEmissionsFlow(false)
-            val expectedAgentResult = createTempAgent()
             // Act
             val resultLiveData = useCase("-1").asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
+            resultLiveData.assertHistorySize(1)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.error(createTempFailureData())
+                    Resource.Failure(createTempFailureData())
                 )
         }
 }

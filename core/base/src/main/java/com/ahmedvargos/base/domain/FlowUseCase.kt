@@ -14,7 +14,7 @@ abstract class FlowUseCase<in P, R>() {
     suspend operator fun invoke(parameters: P? = null): Flow<Resource<R>> = execute(parameters)
         .catch { e ->
             emit(
-                Resource.error(
+                Resource.Failure(
                     FailureData(
                         code = NetworkCodes.GENERIC_ERROR,
                         message = e.localizedMessage

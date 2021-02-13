@@ -17,12 +17,12 @@ class FavoriteAgentsViewModel(
     private val toggleUseCase: FavoriteAgentsToggleUseCase
 ) : ViewModel() {
     private val _agentsStateFlow: MutableStateFlow<Resource<List<AgentInfo>>> =
-        MutableStateFlow(Resource.loading())
+        MutableStateFlow(Resource.Loading)
 
     val agentsStateFlow: StateFlow<Resource<List<AgentInfo>>> = _agentsStateFlow
 
     private val _favAgentToggleStateFlow: MutableStateFlow<Resource<Boolean>> =
-        MutableStateFlow(Resource.loading())
+        MutableStateFlow(Resource.Loading)
 
     val favAgentToggleStateFlow: StateFlow<Resource<Boolean>> = _favAgentToggleStateFlow
 

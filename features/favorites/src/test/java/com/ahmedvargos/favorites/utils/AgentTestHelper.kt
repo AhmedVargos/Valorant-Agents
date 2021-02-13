@@ -1,6 +1,7 @@
 package com.ahmedvargos.favorites.utils
 
 import com.ahmedvargos.base.data.AgentInfo
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.FailureData
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.local.entities.AgentEntity
@@ -13,11 +14,10 @@ import kotlinx.coroutines.flow.flowOf
 
 fun createTempEmissionsFlow(isSuccess: Boolean = true): Flow<Resource<List<AgentInfo>>> {
     return flowOf(
-        Resource.loading(),
         if (isSuccess)
-            Resource.success(createTempAgentList())
+            Resource.Success(createTempAgentList(), DataSource.CACHE)
         else
-            Resource.error(createTempFailureData())
+            Resource.Failure(createTempFailureData())
     )
 }
 
@@ -36,12 +36,11 @@ fun createTempAgentList(): List<AgentInfo> {
 
 fun createTempBoolEmissionsFlow(isSuccess: Boolean): Flow<Resource<Boolean>> {
     return flow {
-        emit(Resource.loading())
         emit(
             if (isSuccess)
-                Resource.success(true)
+                Resource.Success(true, DataSource.CACHE)
             else
-                Resource.error(createTempFailureData())
+                Resource.Failure(createTempFailureData())
         )
     }
 }

@@ -5,6 +5,8 @@ import androidx.lifecycle.asLiveData
 import com.ahmedvargos.agents_list.domain.repo.AgentsListRepo
 import com.ahmedvargos.agents_list.utils.createListOfAgents
 import com.ahmedvargos.agents_list.utils.createTempEmissionsFlow
+import com.ahmedvargos.base.data.DataSource
+import com.ahmedvargos.base.data.FailureData
 import com.ahmedvargos.base.data.Resource
 import com.jraska.livedata.test
 import io.mockk.MockKAnnotations
@@ -48,11 +50,8 @@ internal class AgentsListUseCaseTest {
             // Act
             val resultLiveData = useCase().asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
-                .assertValue {
-                    it.status == Resource.Status.SUCCESS &&
-                            it.data?.contains(expectedAgentsList[0]) == true
-                }
+            resultLiveData.assertHistorySize(1)
+                .assertValueHistory(Resource.Success(expectedAgentsList, DataSource.REMOTE))
         }
 
     @Test
@@ -64,9 +63,7 @@ internal class AgentsListUseCaseTest {
             // Act
             val resultLiveData = useCase().asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
-                .assertValue {
-                    it.status == Resource.Status.ERROR && it.messageType?.code == 999
-                }
+            resultLiveData.assertHistorySize(1)
+                .assertValueHistory(Resource.Failure(FailureData(999, "Generic Error")))
         }
 }

@@ -4,6 +4,6 @@ import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.base.data.Resource
 import kotlinx.coroutines.flow.Flow
 
-interface AgentsListRepo {
+internal interface AgentsListRepo {
     suspend fun getPopularAgents(): Flow<Resource<List<AgentInfo>>>
 }

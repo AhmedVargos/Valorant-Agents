@@ -2,12 +2,14 @@ package com.ahmedvargos.favorites.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asLiveData
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.favorites.domain.usecases.FavoriteAgentsInquiryUseCase
 import com.ahmedvargos.favorites.domain.usecases.FavoriteAgentsToggleUseCase
 import com.ahmedvargos.favorites.utils.createTempAgentList
 import com.ahmedvargos.favorites.utils.createTempBoolEmissionsFlow
 import com.ahmedvargos.favorites.utils.createTempEmissionsFlow
+import com.ahmedvargos.favorites.utils.createTempFailureData
 import com.jraska.livedata.test
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -54,10 +56,10 @@ internal class FavoriteAgentsViewModelTest {
         viewModel.getFavoriteAgents()
         // Assert
         resultLiveData.assertHistorySize(2)
-            .assertValue {
-                it.status == Resource.Status.SUCCESS &&
-                        it.data?.contains(expectedAgentsList[0]) == true
-            }
+            .assertValueHistory(
+                Resource.Loading,
+                Resource.Success(expectedAgentsList, DataSource.CACHE)
+            )
     }
 
     @Test
@@ -69,10 +71,10 @@ internal class FavoriteAgentsViewModelTest {
         viewModel.getFavoriteAgents()
         // Assert
         resultLiveData.assertHistorySize(2)
-            .assertValue {
-                it.status == Resource.Status.ERROR &&
-                        it.messageType?.code == 999
-            }
+            .assertValueHistory(
+                Resource.Loading,
+                Resource.Failure(createTempFailureData())
+            )
     }
 
     @Test
@@ -85,10 +87,10 @@ internal class FavoriteAgentsViewModelTest {
         viewModel.toggleFavoriteAgent("1234")
         // Assert
         resultLiveData.assertHistorySize(2)
-            .assertValue {
-                it.status == Resource.Status.SUCCESS &&
-                        it.data == true
-            }
+            .assertValueHistory(
+                Resource.Loading,
+                Resource.Success(true, DataSource.CACHE)
+            )
     }
 
     @Test
@@ -101,9 +103,9 @@ internal class FavoriteAgentsViewModelTest {
         viewModel.toggleFavoriteAgent("-1")
         // Assert
         resultLiveData.assertHistorySize(2)
-            .assertValue {
-                it.status == Resource.Status.ERROR &&
-                        it.messageType?.code == 999
-            }
+            .assertValueHistory(
+                Resource.Loading,
+                Resource.Failure(createTempFailureData())
+            )
     }
 }

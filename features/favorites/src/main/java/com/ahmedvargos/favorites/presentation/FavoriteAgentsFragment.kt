@@ -49,32 +49,34 @@ class FavoriteAgentsFragment : BaseFragment<FragmentFavoriteAgentsBinding>() {
 
     private fun bindViewModels() {
         favoriteAgentsViewModel.agentsStateFlow.asLiveData().observe(viewLifecycleOwner) {
-            when (it.status) {
-                Resource.Status.LOADING -> {
+            when (it) {
+                is Resource.Loading -> {
                     with(binding) {
                         progress.visible()
                         tvNoFavs.gone()
                         rvAgents.gone()
                     }
                 }
-                Resource.Status.SUCCESS -> {
+                is Resource.Success -> {
                     binding.progress.gone()
-                    it.data?.takeIf { it.isNotEmpty() }?.let { agentsList ->
-                        binding.tvNoFavs.gone()
-                        fillViewWithData(agentsList)
-                    } ?: kotlin.run {
+                    it.data
+                        ?.takeIf { list -> list.isNotEmpty() }
+                        ?.let { agentsList ->
+                            binding.tvNoFavs.gone()
+                            fillViewWithData(agentsList)
+                        } ?: kotlin.run {
                         binding.rvAgents.gone()
                         binding.tvNoFavs.visible()
                     }
                 }
-                Resource.Status.ERROR -> {
+                is Resource.Failure -> {
                     // Show error toast & hide progress
                     binding.progress.gone()
                     requireContext().showErrorDialog(
-                        it.messageType?.message ?: getString(R.string.generic_error)
+                        it.failureData.message ?: getString(R.string.generic_error)
                     )
                 }
-                Resource.Status.NONE -> {
+                is Resource.None -> {
                 }
             }
         }

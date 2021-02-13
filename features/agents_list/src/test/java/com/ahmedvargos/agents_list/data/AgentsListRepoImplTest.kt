@@ -7,6 +7,7 @@ import com.ahmedvargos.agents_list.data.data_sources.remote.AgentsListRemoteSour
 import com.ahmedvargos.agents_list.domain.repo.AgentsListRepo
 import com.ahmedvargos.agents_list.utils.createListOfAgentEntities
 import com.ahmedvargos.agents_list.utils.createListOfAgents
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.utils.SchedulerProvider
 import com.ahmedvargos.base.utils.TestDispatcherProvider
@@ -76,11 +77,10 @@ internal class AgentsListRepoImplTest : AutoCloseKoinTest() {
             // Act
             val resultLiveData = repo.getPopularAgents().asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(3)
+            resultLiveData.assertHistorySize(2)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.loading(data = createListOfAgents()),
-                    Resource.success(data = createListOfAgents())
+                    Resource.Success(data = createListOfAgents(), source = DataSource.CACHE),
+                    Resource.Success(data = createListOfAgents(), source = DataSource.REMOTE)
                 )
         }
 
@@ -93,11 +93,10 @@ internal class AgentsListRepoImplTest : AutoCloseKoinTest() {
             // Act
             val resultLiveData = repo.getPopularAgents().asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(3)
+            resultLiveData.assertHistorySize(2)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.loading(data = mutableListOf()),
-                    Resource.success(data = createListOfAgents())
+                    Resource.Success(data = mutableListOf(), DataSource.CACHE),
+                    Resource.Success(data = createListOfAgents(), DataSource.REMOTE)
                 )
         }
 }

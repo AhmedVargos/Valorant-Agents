@@ -2,6 +2,7 @@ package com.ahmedvargos.favorites.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asLiveData
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.utils.SchedulerProvider
 import com.ahmedvargos.base.utils.TestDispatcherProvider
@@ -86,10 +87,9 @@ internal class FavoriteAgentsRepoImplTest : AutoCloseKoinTest() {
             // Act
             val resultLiveData = repo.toggleFavoriteAgent("1234").asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
+            resultLiveData.assertHistorySize(1)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.success(true)
+                    Resource.Success(true, DataSource.CACHE)
                 )
         }
 
@@ -101,10 +101,9 @@ internal class FavoriteAgentsRepoImplTest : AutoCloseKoinTest() {
             // Act
             val resultLiveData = repo.toggleFavoriteAgent("-1").asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
+            resultLiveData.assertHistorySize(1)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.success(false)
+                    Resource.Success(false, DataSource.CACHE)
                 )
         }
 }

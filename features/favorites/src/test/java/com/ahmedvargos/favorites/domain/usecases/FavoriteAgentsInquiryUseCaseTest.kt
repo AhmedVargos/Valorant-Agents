@@ -3,6 +3,7 @@ package com.ahmedvargos.favorites.domain.usecases
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asLiveData
 import com.ahmedvargos.base.data.AgentInfo
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.favorites.domain.repo.FavoriteAgentsRepo
 import com.ahmedvargos.favorites.utils.createTempAgentList
@@ -52,10 +53,9 @@ internal class FavoriteAgentsInquiryUseCaseTest {
             // Act
             val resultLiveData = useCase().asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
+            resultLiveData.assertHistorySize(1)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.success(expectedAgentsList)
+                    Resource.Success(expectedAgentsList, DataSource.CACHE)
                 )
         }
 
@@ -68,10 +68,9 @@ internal class FavoriteAgentsInquiryUseCaseTest {
             // Act
             val resultLiveData = useCase().asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
+            resultLiveData.assertHistorySize(1)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.success(mutableListOf())
+                    Resource.Success(mutableListOf(), DataSource.CACHE)
                 )
         }
 }

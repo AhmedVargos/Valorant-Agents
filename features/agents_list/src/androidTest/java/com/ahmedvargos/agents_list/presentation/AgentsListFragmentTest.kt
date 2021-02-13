@@ -11,6 +11,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.ahmedvargos.agents_list.R
 import com.ahmedvargos.agents_list.presentation.utils.createListOfAgentsUI
 import com.ahmedvargos.base.data.AgentInfo
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.FailureData
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.navigator.di.getNavigatorModule
@@ -83,7 +84,7 @@ class AgentsListFragmentTest : KoinTest {
     @Test
     fun givenListOfAgents_ThenShouldShowLoadingThenListOfAgents() {
         // Arrange
-        val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.loading())
+        val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.Loading)
         every { agentsListViewModel.agentsStateFlow } returns testMutableStateFlow
         val expectedList = createListOfAgentsUI()
         // Act
@@ -92,7 +93,7 @@ class AgentsListFragmentTest : KoinTest {
         assertDisplayed(R.id.progressView)
         assertNotDisplayed(R.id.rvAgentsList)
         // Act
-        testMutableStateFlow.value = Resource.success(expectedList)
+        testMutableStateFlow.value = Resource.Success(expectedList, DataSource.REMOTE)
         // Assert
         assertNotDisplayed(R.id.progressView)
         assertDisplayed(R.id.rvAgentsList)
@@ -108,8 +109,9 @@ class AgentsListFragmentTest : KoinTest {
     fun givenCachedListOfAgents_ThenShouldSetCachedStreamToTrue() {
         // Arrange
         val testMutableStateFlow = MutableStateFlow(
-            Resource.loading(
-                createListOfAgentsUI()
+            Resource.Success(
+                createListOfAgentsUI(),
+                DataSource.CACHE
             )
         )
         every { agentsListViewModel.agentsStateFlow } returns testMutableStateFlow
@@ -124,7 +126,7 @@ class AgentsListFragmentTest : KoinTest {
     @Test
     fun givenError_ThenShouldShowLoadingThenErrorToast() {
         // Arrange
-        val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.loading())
+        val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.Loading)
         every { agentsListViewModel.agentsStateFlow } returns testMutableStateFlow
         val errorScript = "Test Error"
         // Act
@@ -133,7 +135,7 @@ class AgentsListFragmentTest : KoinTest {
         assertDisplayed(R.id.progressView)
         assertNotDisplayed(R.id.rvAgentsList)
         // Act
-        testMutableStateFlow.value = Resource.error(FailureData(999, errorScript))
+        testMutableStateFlow.value = Resource.Failure(FailureData(999, errorScript))
         // Assert
         assertNotDisplayed(R.id.progressView)
 

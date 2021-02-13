@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ahmedvargos.agents_list.R
 import com.ahmedvargos.agents_list.databinding.FragmentAgentsListBinding
 import com.ahmedvargos.base.data.AgentInfo
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.ui.BaseFragment
 import com.ahmedvargos.navigator.NavigationActions
@@ -53,29 +54,26 @@ class AgentsListFragment : BaseFragment<FragmentAgentsListBinding>() {
     private fun bindViewModels() {
         agentsListViewModel.agentsStateFlow.asLiveData()
             .observe(viewLifecycleOwner) {
-                when (it.status) {
-                    Resource.Status.LOADING -> {
+                when (it) {
+                    is Resource.Loading -> {
                         // Show loading & hide rv
-                        it.data?.let { agents ->
-                            fillAgentsWithData(agents)
-                            cacheStateViewModel.updateCachedDataState(true)
-                        } ?: run {
-                            binding.progressView.visible()
-                            binding.rvAgentsList.gone()
-                        }
+                        binding.progressView.visible()
+                        binding.rvAgentsList.gone()
                     }
-                    Resource.Status.SUCCESS -> {
-                        cacheStateViewModel.updateCachedDataState(false)
+                    is Resource.Success -> {
                         fillAgentsWithData(it.data)
+                        cacheStateViewModel.updateCachedDataState(
+                            it.source != DataSource.REMOTE
+                        )
                     }
-                    Resource.Status.ERROR -> {
+                    is Resource.Failure -> {
                         // Show error toast & hide progress
                         binding.progressView.gone()
                         requireContext().showErrorDialog(
-                            it.messageType?.message ?: getString(R.string.generic_error)
+                            it.failureData.message ?: getString(R.string.generic_error)
                         )
                     }
-                    Resource.Status.NONE -> {
+                    is Resource.None -> {
                     }
                 }
             }

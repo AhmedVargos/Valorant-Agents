@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import com.ahmedvargos.agent_details.R
 import com.ahmedvargos.agent_details.utils.createTempAgentUI
 import com.ahmedvargos.base.data.AgentInfo
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.FailureData
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.favorites.presentation.FavoriteAgentsViewModel
@@ -79,7 +80,7 @@ class AgentDetailsActivityTest : KoinTest {
     @Test
     fun givenAgentDetailsModel_ThenShouldShowLoadingThenFillViews() {
         // Arrange
-        val testMutableStateFlow = MutableStateFlow<Resource<AgentInfo>>(Resource.loading())
+        val testMutableStateFlow = MutableStateFlow<Resource<AgentInfo>>(Resource.Loading)
         every { agentDetailsViewModel.agentsDetailsStateFlow } returns testMutableStateFlow
         val expectedAgent = createTempAgentUI()
         // Act
@@ -88,7 +89,7 @@ class AgentDetailsActivityTest : KoinTest {
         assertDisplayed(R.id.progress)
         assertNotDisplayed(R.id.viewsGroup)
         // Act
-        testMutableStateFlow.value = Resource.success(expectedAgent)
+        testMutableStateFlow.value = Resource.Success(expectedAgent, DataSource.CACHE)
         // Assert
         assertNotDisplayed(R.id.progress)
         assertDisplayed(R.id.tvAgentName, expectedAgent.displayName)
@@ -108,7 +109,7 @@ class AgentDetailsActivityTest : KoinTest {
     @Test
     fun givenAError_ThenShouldShowLoadingThenError() {
         // Arrange
-        val testMutableStateFlow = MutableStateFlow<Resource<AgentInfo>>(Resource.loading())
+        val testMutableStateFlow = MutableStateFlow<Resource<AgentInfo>>(Resource.Loading)
         every { agentDetailsViewModel.agentsDetailsStateFlow } returns testMutableStateFlow
         val errorScript = "Test Error"
         // Act
@@ -117,7 +118,7 @@ class AgentDetailsActivityTest : KoinTest {
         assertDisplayed(R.id.progress)
         assertNotDisplayed(R.id.viewsGroup)
         // Act
-        testMutableStateFlow.value = Resource.error(FailureData(999, errorScript))
+        testMutableStateFlow.value = Resource.Failure(FailureData(999, errorScript))
         // Assert
         assertNotDisplayed(R.id.progress)
         assertNotDisplayed(R.id.tvAgentName)

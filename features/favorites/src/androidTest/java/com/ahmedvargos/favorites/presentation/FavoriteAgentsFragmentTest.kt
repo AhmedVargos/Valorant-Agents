@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.ahmedvargos.agents_list.presentation.utils.createListOfAgentsUI
 import com.ahmedvargos.base.data.AgentInfo
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.FailureData
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.favorites.R
@@ -84,7 +85,7 @@ class FavoriteAgentsFragmentTest : KoinTest {
     @Test
     fun givenFavoriteListOfAgents_ThenShouldShowLoadingThenListOfAgents() {
         // Arrange
-        val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.loading())
+        val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.Loading)
         every { favoriteAgentsViewModel.agentsStateFlow } returns testMutableStateFlow
         val expectedList = createListOfAgentsUI()
         // Act
@@ -94,7 +95,7 @@ class FavoriteAgentsFragmentTest : KoinTest {
         assertNotDisplayed(R.id.rvAgents)
         assertNotDisplayed(R.id.tvNoFavs)
         // Act
-        testMutableStateFlow.value = Resource.success(expectedList)
+        testMutableStateFlow.value = Resource.Success(expectedList, DataSource.CACHE)
         // Assert
         assertNotDisplayed(R.id.progress)
         assertNotDisplayed(R.id.tvNoFavs)
@@ -110,7 +111,7 @@ class FavoriteAgentsFragmentTest : KoinTest {
     @Test
     fun givenEmptyFavoritesList_ThenShouldShowLoadingThenNoFavsText() {
         // Arrange
-        val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.loading())
+        val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.Loading)
         every { favoriteAgentsViewModel.agentsStateFlow } returns testMutableStateFlow
         val expectedList = mutableListOf<AgentInfo>()
         // Act
@@ -120,7 +121,7 @@ class FavoriteAgentsFragmentTest : KoinTest {
         assertNotDisplayed(R.id.rvAgents)
         assertNotDisplayed(R.id.tvNoFavs)
         // Act
-        testMutableStateFlow.value = Resource.success(expectedList)
+        testMutableStateFlow.value = Resource.Success(expectedList, DataSource.CACHE)
         // Assert
         assertNotDisplayed(R.id.progress)
         assertNotDisplayed(R.id.rvAgents)
@@ -130,7 +131,7 @@ class FavoriteAgentsFragmentTest : KoinTest {
     @Test
     fun givenError_ThenShouldShowLoadingThenError() {
         // Arrange
-        val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.loading())
+        val testMutableStateFlow = MutableStateFlow<Resource<List<AgentInfo>>>(Resource.Loading)
         every { favoriteAgentsViewModel.agentsStateFlow } returns testMutableStateFlow
         val errorScript = "Test Error"
         // Act
@@ -140,7 +141,7 @@ class FavoriteAgentsFragmentTest : KoinTest {
         assertNotDisplayed(R.id.rvAgents)
         assertNotDisplayed(R.id.tvNoFavs)
         // Act
-        testMutableStateFlow.value = Resource.error(
+        testMutableStateFlow.value = Resource.Failure(
             FailureData(999, errorScript)
         )
         // Assert

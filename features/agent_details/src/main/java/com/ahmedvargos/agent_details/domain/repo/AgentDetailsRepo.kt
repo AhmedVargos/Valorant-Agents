@@ -4,6 +4,6 @@ import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.base.data.Resource
 import kotlinx.coroutines.flow.Flow
 
-interface AgentDetailsRepo {
+internal interface AgentDetailsRepo {
     suspend fun getAgentDetails(agentId: String): Flow<Resource<AgentInfo?>>
 }

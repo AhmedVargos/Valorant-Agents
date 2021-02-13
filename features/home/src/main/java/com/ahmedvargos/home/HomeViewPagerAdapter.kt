@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class HomeViewPagerAdapter(
+internal class HomeViewPagerAdapter(
     fragmentActivity: FragmentActivity,
     private val fragments: List<Fragment>
 ) : FragmentStateAdapter(fragmentActivity) {

@@ -1,44 +1,14 @@
 package com.ahmedvargos.base.data
 
-data class Resource<out T>(val status: Status, val data: T?, val messageType: FailureData?) {
-    companion object {
-        fun <T> success(data: T? = null): Resource<T> {
-            return Resource(
-                Status.SUCCESS,
-                data,
-                null
-            )
-        }
+sealed class Resource<out T> {
 
-        fun <T> error(error: FailureData, data: T? = null): Resource<T> {
-            return Resource(
-                Status.ERROR,
-                data,
-                error
-            )
-        }
+    data class Success<T>(val data: T? = null, val source: DataSource) : Resource<T>()
+    data class Failure(val failureData: FailureData) : Resource<Nothing>()
+    object Loading : Resource<Nothing>()
+    object None : Resource<Nothing>()
+}
 
-        fun <T> loading(data: T? = null): Resource<T> {
-            return Resource(
-                Status.LOADING,
-                data,
-                null
-            )
-        }
-
-        fun <T> none(): Resource<T> {
-            return Resource(
-                Status.NONE,
-                null,
-                null
-            )
-        }
-    }
-
-    enum class Status {
-        SUCCESS,
-        ERROR,
-        LOADING,
-        NONE
-    }
+enum class DataSource {
+    CACHE,
+    REMOTE
 }

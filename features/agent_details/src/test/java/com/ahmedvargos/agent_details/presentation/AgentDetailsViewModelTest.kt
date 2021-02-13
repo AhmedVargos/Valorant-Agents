@@ -6,6 +6,7 @@ import com.ahmedvargos.agent_details.domain.usecase.AgentDetailsUseCase
 import com.ahmedvargos.agent_details.utils.createTempAgent
 import com.ahmedvargos.agent_details.utils.createTempEmissionsFlow
 import com.ahmedvargos.agent_details.utils.createTempFailureData
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.Resource
 import com.jraska.livedata.test
 import io.mockk.MockKAnnotations
@@ -49,11 +50,10 @@ internal class AgentDetailsViewModelTest {
         // Act
         viewModel.getAgentDetails("1234")
         // Assert
-        resultLiveData.assertHistorySize(3)
+        resultLiveData.assertHistorySize(2)
             .assertValueHistory(
-                Resource.none(),
-                Resource.loading(),
-                Resource.success(expectedAgentResult)
+                Resource.Loading,
+                Resource.Success(expectedAgentResult, DataSource.CACHE)
             )
     }
 
@@ -65,11 +65,10 @@ internal class AgentDetailsViewModelTest {
         // Act
         viewModel.getAgentDetails("-1")
         // Assert
-        resultLiveData.assertHistorySize(3)
+        resultLiveData.assertHistorySize(2)
             .assertValueHistory(
-                Resource.none(),
-                Resource.loading(),
-                Resource.error(createTempFailureData())
+                Resource.Loading,
+                Resource.Failure(createTempFailureData())
             )
     }
 }

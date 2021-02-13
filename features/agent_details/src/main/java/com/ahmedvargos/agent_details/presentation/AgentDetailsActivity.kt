@@ -3,6 +3,7 @@ package com.ahmedvargos.agent_details.presentation
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.asLiveData
@@ -48,23 +49,17 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
         }
 
         binding.btnFav.setOnClickListener { favBtnView ->
-            with(agentDetailsViewModel.agentsDetailsStateFlow.value.data) {
-                favoriteAgentsViewModel.toggleFavoriteAgent(this?.uuid ?: "0")
-                this?.toggleFav()
-                (favBtnView as ImageButton).setImageResource(
-                    this?.isFav?.getFavoriteImage() ?: 0
-                )
-            }
+            handleFavAction(favBtnView)
         }
     }
 
     private fun bindViewModels(agentId: String?) {
         agentDetailsViewModel.agentsDetailsStateFlow.asLiveData().observe(this) {
-            when (it.status) {
-                Resource.Status.LOADING -> {
+            when (it) {
+                is Resource.Loading -> {
                     binding.progress.visible()
                 }
-                Resource.Status.SUCCESS -> {
+                is Resource.Success -> {
                     binding.progress.gone()
                     binding.viewsGroup.visible()
 
@@ -72,13 +67,13 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
                         fillAgentDetails(agentInfo)
                     }
                 }
-                Resource.Status.ERROR -> {
+                is Resource.Failure -> {
                     binding.progress.gone()
                     this.showErrorDialog(
-                        it.messageType?.message ?: getString(R.string.generic_error)
+                        it.failureData.message ?: getString(R.string.generic_error)
                     )
                 }
-                Resource.Status.NONE -> {
+                is Resource.None -> {
                     binding.progress.gone()
                 }
             }
@@ -98,6 +93,20 @@ class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
                 layoutManager = LinearLayoutManager(context)
                 adapter = SkillsRecyclerAdapter().apply { addSkills(agentInfo.abilities) }
                 isNestedScrollingEnabled = false
+            }
+        }
+    }
+
+    private fun handleFavAction(favBtnView: View?) {
+        if (agentDetailsViewModel.agentsDetailsStateFlow.value is Resource.Success<*>) {
+            val agentInfoData =
+                (agentDetailsViewModel.agentsDetailsStateFlow.value as Resource.Success<AgentInfo>).data
+            with(agentInfoData) {
+                favoriteAgentsViewModel.toggleFavoriteAgent(this?.uuid ?: "0")
+                this?.toggleFav()
+                (favBtnView as ImageButton).setImageResource(
+                    this?.isFav?.getFavoriteImage() ?: 0
+                )
             }
         }
     }

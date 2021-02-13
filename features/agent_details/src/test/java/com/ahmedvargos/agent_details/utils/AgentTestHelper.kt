@@ -1,6 +1,7 @@
 package com.ahmedvargos.agent_details.utils
 
 import com.ahmedvargos.base.data.AgentInfo
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.FailureData
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.local.entities.AgentEntity
@@ -12,11 +13,10 @@ import kotlinx.coroutines.flow.flowOf
 
 fun createTempEmissionsFlow(isSuccess: Boolean = true): Flow<Resource<AgentInfo>> {
     return flowOf(
-        Resource.loading(),
         if (isSuccess)
-            Resource.success(createTempAgent())
+            Resource.Success(createTempAgent(), DataSource.CACHE)
         else
-            Resource.error(createTempFailureData())
+            Resource.Failure(createTempFailureData())
     )
 }
 

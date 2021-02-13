@@ -6,6 +6,7 @@ import com.ahmedvargos.agent_details.data.data_source.AgentDetailsLocalDataSourc
 import com.ahmedvargos.agent_details.domain.repo.AgentDetailsRepo
 import com.ahmedvargos.agent_details.utils.createTempAgent
 import com.ahmedvargos.agent_details.utils.createTempAgentEntity
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.utils.SchedulerProvider
 import com.ahmedvargos.base.utils.TestDispatcherProvider
@@ -72,10 +73,9 @@ internal class AgentDetailsRepoImplTest : AutoCloseKoinTest() {
             // Act
             val resultLiveData = repo.getAgentDetails("1234").asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
+            resultLiveData.assertHistorySize(1)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.success(expectedResult)
+                    Resource.Success(expectedResult, DataSource.CACHE)
                 )
         }
 
@@ -87,10 +87,9 @@ internal class AgentDetailsRepoImplTest : AutoCloseKoinTest() {
             // Act
             val resultLiveData = repo.getAgentDetails("1234").asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
+            resultLiveData.assertHistorySize(1)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.success(null)
+                    Resource.Success(null, DataSource.CACHE)
                 )
         }
 }

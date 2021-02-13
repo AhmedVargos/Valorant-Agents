@@ -6,7 +6,7 @@ import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.domain.FlowUseCase
 import kotlinx.coroutines.flow.Flow
 
-class AgentsListUseCase(
+internal class AgentsListUseCase(
     private val repo: AgentsListRepo
 ) : FlowUseCase<Nothing?, List<AgentInfo>>() {
     override suspend fun execute(parameters: Nothing?): Flow<Resource<List<AgentInfo>>> {

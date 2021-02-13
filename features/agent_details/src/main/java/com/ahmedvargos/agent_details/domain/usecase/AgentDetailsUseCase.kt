@@ -7,16 +7,20 @@ import com.ahmedvargos.base.domain.FlowUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class AgentDetailsUseCase(
+internal class AgentDetailsUseCase(
     private val repo: AgentDetailsRepo
 ) : FlowUseCase<String, AgentInfo>() {
 
     override suspend fun execute(parameters: String?): Flow<Resource<AgentInfo>> {
         return repo.getAgentDetails(parameters ?: "-1")
             .map { result ->
-                result.data?.let {
-                    Resource.success(it)
-                } ?: Resource.none()
+                if (result is Resource.Success<*>) {
+                    val successResult = (result as Resource.Success)
+                    successResult.data?.let {
+                        return@let Resource.Success(it, successResult.source)
+                    } ?: Resource.None
+                } else
+                    result as Resource.Failure
             }
     }
 }

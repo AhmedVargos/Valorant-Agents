@@ -2,6 +2,7 @@ package com.ahmedvargos.favorites.domain.usecases
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asLiveData
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.favorites.domain.repo.FavoriteAgentsRepo
 import com.ahmedvargos.favorites.utils.createTempBoolEmissionsFlow
@@ -48,10 +49,9 @@ internal class FavoriteAgentsToggleUseCaseTest {
             // Act
             val resultLiveData = useCase("1234").asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
+            resultLiveData.assertHistorySize(1)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.success(true)
+                    Resource.Success(true, DataSource.CACHE)
                 )
         }
 
@@ -64,10 +64,9 @@ internal class FavoriteAgentsToggleUseCaseTest {
             // Act
             val resultLiveData = useCase("-1").asLiveData().test()
             // Assert
-            resultLiveData.assertHistorySize(2)
+            resultLiveData.assertHistorySize(1)
                 .assertValueHistory(
-                    Resource.loading(),
-                    Resource.error(createTempFailureData())
+                    Resource.Failure(createTempFailureData())
                 )
         }
 }

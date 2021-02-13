@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class AgentsListViewModel(private val useCase: AgentsListUseCase) : ViewModel() {
+internal class AgentsListViewModel(private val useCase: AgentsListUseCase) : ViewModel() {
 
     private val _agentsStateFlow: MutableStateFlow<Resource<List<AgentInfo>>> =
-        MutableStateFlow(Resource.loading())
+        MutableStateFlow(Resource.Loading)
 
     val agentsStateFlow: StateFlow<Resource<List<AgentInfo>>> = _agentsStateFlow
 

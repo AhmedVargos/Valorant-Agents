@@ -1,5 +1,6 @@
 package com.ahmedvargos.remote
 
+import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.FailureData
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.utils.SchedulerProvider
@@ -17,37 +18,33 @@ abstract class NetworkBoundResource<T>(private val schedulerProvider: SchedulerP
         // check if should fetch data from remote or not
         if (shouldFetch()) {
             if (shouldFetchWithLocalData()) { // should emit cached date with loading state or not
-                emit(Resource.loading(data = localFetch()))
+                emit(Resource.Success(data = localFetch(), DataSource.CACHE))
             }
 
-            val response = safeApiCall(dispatcher = schedulerProvider.io()) {
+            val remoteResponse = safeApiCall(dispatcher = schedulerProvider.io()) {
                 remoteFetch() // fetch the remote source provided
             }
 
-            when (response) {
+            when (remoteResponse) {
                 is ResultWrapper.Success -> {
-                    response.value?.let {
-                        saveFetchResult(response.value)
+                    remoteResponse.value?.let {
+                        saveFetchResult(remoteResponse.value)
                     }
-                    emit(Resource.success(data = response.value))
+                    emit(Resource.Success(data = remoteResponse.value, DataSource.REMOTE))
                 }
 
                 is ResultWrapper.GenericError -> {
                     emit(
-                        Resource.error(
-                            data = null,
-                            error = FailureData(response.code, response.message)
+                        Resource.Failure(
+                            failureData = FailureData(remoteResponse.code, remoteResponse.message)
                         )
                     )
                 }
             }
         } else {
             // get from cache
-            emit(Resource.success(data = localFetch()))
+            emit(Resource.Success(data = localFetch(), DataSource.CACHE))
         }
-    }.onStart {
-        // get from cache
-        emit(Resource.loading(data = null))
     }
 
     abstract suspend fun remoteFetch(): T
