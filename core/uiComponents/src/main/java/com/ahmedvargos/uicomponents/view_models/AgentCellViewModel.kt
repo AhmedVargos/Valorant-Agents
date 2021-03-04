@@ -6,8 +6,12 @@ import androidx.lifecycle.ViewModel
 import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.uicomponents.custom_views.AgentCellView
 import com.ahmedvargos.uicomponents.utils.SingleLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class AgentCellViewModel : ViewModel(), AgentCellView.AgentCellActionsDelegate {
+@HiltViewModel
+class AgentCellViewModel @Inject constructor() : ViewModel(),
+    AgentCellView.AgentCellActionsDelegate {
 
     private val _openAgentDetails: MutableLiveData<AgentInfo> = SingleLiveData()
     val openAgentDetails: LiveData<AgentInfo> = _openAgentDetails

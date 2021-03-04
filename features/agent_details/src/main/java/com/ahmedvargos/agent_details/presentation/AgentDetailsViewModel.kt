@@ -5,12 +5,18 @@ import androidx.lifecycle.viewModelScope
 import com.ahmedvargos.agent_details.domain.usecase.AgentDetailsUseCase
 import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.base.data.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-internal class AgentDetailsViewModel(private val useCase: AgentDetailsUseCase) : ViewModel() {
+@HiltViewModel
+internal class AgentDetailsViewModel
+@Inject constructor(
+    private val useCase: AgentDetailsUseCase
+) : ViewModel() {
 
     private val _agentsDetailsStateFlow: MutableStateFlow<Resource<AgentInfo>> =
         MutableStateFlow(Resource.Loading)

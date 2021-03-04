@@ -1,6 +1,8 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
+    id "kotlin-kapt"
+    id "dagger.hilt.android.plugin"
 }
 
 android {
@@ -24,18 +26,6 @@ android {
         }
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField 'String', 'BASE_URL', "\"${RemoteServerConfigs.RELEASE_BASE_URL}\""
-        }
-
-        debug {
-            buildConfigField 'String', 'BASE_URL', "\"${RemoteServerConfigs.DEBUG_BASE_URL}\""
-        }
-
-    }
     compileOptions {
         sourceCompatibility Config.javaVersion
         targetCompatibility Config.javaVersion
@@ -69,9 +59,12 @@ dependencies {
     implementation Dependencies.androidx_constraintlayout
     implementation Dependencies.coroutines_core
 
-    implementation Dependencies.koin
-    implementation Dependencies.koin_viewModel
-    implementation Dependencies.koin_scope
+    implementation Dependencies.roomKtx
+    implementation Dependencies.roomRunTime
+    kapt Dependencies.roomCompiler
+
+    implementation Dependencies.hilt
+    kapt Dependencies.hilt_compiler
 
     testImplementation Dependencies.testlib_junit
     androidTestImplementation Dependencies.testandroidx_runner

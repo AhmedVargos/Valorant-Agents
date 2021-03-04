@@ -5,27 +5,46 @@ import com.ahmedvargos.agent_details.data.data_source.AgentDetailsLocalDataSourc
 import com.ahmedvargos.agent_details.data.data_source.AgentDetailsLocalDataSourceImpl
 import com.ahmedvargos.agent_details.domain.repo.AgentDetailsRepo
 import com.ahmedvargos.agent_details.domain.usecase.AgentDetailsUseCase
-import com.ahmedvargos.agent_details.presentation.AgentDetailsViewModel
+import com.ahmedvargos.base.utils.SchedulerProvider
+import com.ahmedvargos.local.dao.AgentsDao
+import com.ahmedvargos.local.mapper.AgentEntityToAgentInfoMapper
+import com.ahmedvargos.remote.utils.ErrorCodesMapper
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
 
 @ExperimentalCoroutinesApi
-fun getAgentDetailsModule() = module {
-
-    factory<AgentDetailsLocalDataSource> {
-        AgentDetailsLocalDataSourceImpl(get())
+@Module
+@InstallIn(ViewModelComponent::class)
+object AgentDetailsModule {
+    @Provides
+    internal fun provideAgentDetailsLocalDataSource(
+        agentsDao: AgentsDao
+    ): AgentDetailsLocalDataSource {
+        return AgentDetailsLocalDataSourceImpl(agentsDao)
     }
 
-    single<AgentDetailsRepo> {
-        AgentDetailsRepoImpl(get(), get(), get())
+    @Provides
+    internal fun provideAgentDetailsRepo(
+        localSource: AgentDetailsLocalDataSource,
+        toAgentInfoMapper: AgentEntityToAgentInfoMapper,
+        schedulerProvider: SchedulerProvider,
+        errorCodesMapper: ErrorCodesMapper
+    ): AgentDetailsRepo {
+        return AgentDetailsRepoImpl(
+            localSource,
+            toAgentInfoMapper,
+            schedulerProvider,
+            errorCodesMapper
+        )
     }
 
-    factory {
-        AgentDetailsUseCase(get())
-    }
-
-    viewModel {
-        AgentDetailsViewModel(get())
+    @Provides
+    internal fun provideAgentDetailsUseCase(
+        repo: AgentDetailsRepo
+    ): AgentDetailsUseCase {
+        return AgentDetailsUseCase(repo)
     }
 }

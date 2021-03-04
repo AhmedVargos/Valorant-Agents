@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageButton
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.asLiveData
 import androidx.palette.graphics.Palette
@@ -24,12 +25,14 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AgentDetailsActivity : BaseActivity<ActivityAgentDetailsBinding>() {
 
-    private val agentDetailsViewModel: AgentDetailsViewModel by viewModel()
-    private val favoriteAgentsViewModel: FavoriteAgentsViewModel by viewModel()
+    private val agentDetailsViewModel: AgentDetailsViewModel by viewModels()
+
+    private val favoriteAgentsViewModel: FavoriteAgentsViewModel by viewModels()
 
     override val bindingInflater: (LayoutInflater) -> ActivityAgentDetailsBinding
         get() = ActivityAgentDetailsBinding::inflate

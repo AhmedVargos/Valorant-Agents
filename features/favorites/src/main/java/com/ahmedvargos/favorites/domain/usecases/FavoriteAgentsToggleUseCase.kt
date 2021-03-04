@@ -4,8 +4,9 @@ import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.domain.FlowUseCase
 import com.ahmedvargos.favorites.domain.repo.FavoriteAgentsRepo
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class FavoriteAgentsToggleUseCase(
+class FavoriteAgentsToggleUseCase @Inject constructor(
     private val repo: FavoriteAgentsRepo
 ) : FlowUseCase<String, Boolean>() {
 

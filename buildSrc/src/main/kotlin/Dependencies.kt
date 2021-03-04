@@ -44,6 +44,8 @@ object Versions {
 
     const val view_pager2 = "1.0.0"
     const val koin = "2.0.1"
+    const val hilt = "2.31.2-alpha"
+    const val hilt_viewModel = "1.0.0-alpha02"
 
     const val retrofit = "2.6.2"
     const val retrofitCoroutines = "0.9.2"
@@ -97,6 +99,11 @@ object Dependencies {
     val koin_viewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
 
     val koin_scope = "org.koin:koin-androidx-scope:${Versions.koin}"
+
+    //hilt
+    val hilt_viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_viewModel}"
+    val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
+    val hilt_compiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
 
     //retrofit
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
@@ -158,6 +165,7 @@ object ClassPaths {
     val tools_gradleandroid = "com.android.tools.build:gradle:${Versions.gradle_android}"
     val tools_kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     val ktlint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktlint}"
+    val hilt_plugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
 }
 
 object RemoteServerConfigs {

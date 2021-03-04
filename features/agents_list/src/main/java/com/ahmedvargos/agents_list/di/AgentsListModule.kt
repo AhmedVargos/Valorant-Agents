@@ -8,44 +8,63 @@ import com.ahmedvargos.agents_list.data.data_sources.remote.AgentsListRemoteSour
 import com.ahmedvargos.agents_list.data.data_sources.remote.AgentsListRemoteSourceImpl
 import com.ahmedvargos.agents_list.domain.repo.AgentsListRepo
 import com.ahmedvargos.agents_list.domain.usecase.AgentsListUseCase
-import com.ahmedvargos.agents_list.presentation.AgentsListViewModel
-import com.ahmedvargos.base.utils.ApplicationDispatchersProvider
 import com.ahmedvargos.base.utils.SchedulerProvider
-import com.ahmedvargos.uicomponents.view_models.AgentCellViewModel
+import com.ahmedvargos.local.dao.AgentsDao
+import com.ahmedvargos.local.mapper.AgentEntityToAgentInfoMapper
+import com.ahmedvargos.local.mapper.AgentInfoToEntityMapper
+import com.ahmedvargos.remote.utils.ErrorCodesMapper
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
 import retrofit2.Retrofit
 
 @ExperimentalCoroutinesApi
-fun getAgentsListModule() = module {
-    single {
-        get<Retrofit>().create(AgentsListApi::class.java)
+@Module
+@InstallIn(ViewModelComponent::class)
+object AgentsListModule {
+    @Provides
+    internal fun provideAgentsListApi(retrofit: Retrofit): AgentsListApi {
+        return retrofit.create(AgentsListApi::class.java)
     }
 
-    factory<AgentsListLocalSource> {
-        AgentsListLocalSourceImpl(get(), get())
+    @Provides
+    internal fun provideAgentsListLocalSource(
+        agentsDao: AgentsDao,
+        agentInfoToEntityMapper: AgentInfoToEntityMapper
+    ): AgentsListLocalSource {
+        return AgentsListLocalSourceImpl(agentsDao, agentInfoToEntityMapper)
     }
 
-    factory<AgentsListRemoteSource> {
-        AgentsListRemoteSourceImpl(get())
+    @Provides
+    internal fun provideAgentsListRemoteSource(
+        agentsListApi: AgentsListApi
+    ): AgentsListRemoteSource {
+        return AgentsListRemoteSourceImpl(agentsListApi)
     }
 
-    factory<SchedulerProvider> { ApplicationDispatchersProvider() }
-
-    single<AgentsListRepo> {
-        AgentsListRepoImpl(get(), get(), get(), get())
+    @Provides
+    internal fun provideAgentsListRepo(
+        remoteSource: AgentsListRemoteSource,
+        localSource: AgentsListLocalSource,
+        toAgentInfoMapper: AgentEntityToAgentInfoMapper,
+        schedulerProvider: SchedulerProvider,
+        errorCodesMapper: ErrorCodesMapper
+    ): AgentsListRepo {
+        return AgentsListRepoImpl(
+            remoteSource,
+            localSource,
+            toAgentInfoMapper,
+            schedulerProvider,
+            errorCodesMapper
+        )
     }
 
-    factory {
-        AgentsListUseCase(get())
-    }
-
-    viewModel {
-        AgentCellViewModel()
-    }
-
-    viewModel {
-        AgentsListViewModel(get())
+    @Provides
+    internal fun provideAgentsListUseCase(
+        repo: AgentsListRepo
+    ): AgentsListUseCase {
+        return AgentsListUseCase(repo)
     }
 }

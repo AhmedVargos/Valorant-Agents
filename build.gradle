@@ -12,6 +12,7 @@ buildscript {
         classpath ClassPaths.tools_gradleandroid
         classpath ClassPaths.tools_kotlin
         classpath ClassPaths.ktlint
+        classpath ClassPaths.hilt_plugin
     }
 }
 

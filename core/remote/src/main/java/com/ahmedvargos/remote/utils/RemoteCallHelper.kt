@@ -19,6 +19,7 @@ sealed class ResultWrapper<out T> {
 
 internal suspend fun <T> safeApiCall(
     dispatcher: CoroutineDispatcher,
+    errorCodesMapper: ErrorCodesMapper,
     apiCall: suspend () -> T?
 ): ResultWrapper<T?> {
     return withContext(dispatcher) {
@@ -31,13 +32,13 @@ internal suspend fun <T> safeApiCall(
                 is TimeoutCancellationException -> {
                     ResultWrapper.GenericError(
                         code = NetworkCodes.TIMEOUT_ERROR,
-                        message = ErrorCodesMapper.getMessage(NetworkCodes.CONNECTION_ERROR)
+                        message = errorCodesMapper.getMessage(NetworkCodes.CONNECTION_ERROR)
                     )
                 }
                 is IOException -> {
                     ResultWrapper.GenericError(
                         code = NetworkCodes.CONNECTION_ERROR,
-                        message = ErrorCodesMapper.getMessage(NetworkCodes.CONNECTION_ERROR)
+                        message = errorCodesMapper.getMessage(NetworkCodes.CONNECTION_ERROR)
                     )
                 }
                 is HttpException -> {
@@ -49,7 +50,7 @@ internal suspend fun <T> safeApiCall(
                 else -> {
                     ResultWrapper.GenericError(
                         code = NetworkCodes.GENERIC_ERROR,
-                        message = ErrorCodesMapper.getMessage(NetworkCodes.GENERIC_ERROR)
+                        message = errorCodesMapper.getMessage(NetworkCodes.GENERIC_ERROR)
                     )
                 }
             }
