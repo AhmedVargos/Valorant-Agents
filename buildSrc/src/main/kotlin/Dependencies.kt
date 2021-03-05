@@ -61,7 +61,7 @@ object Versions {
     const val testing_core = "1.3.0-alpha03"
     const val barista = "3.7.0"
     const val fragments_testing = "1.2.0-rc03"
-    const val mockk = "1.10.5"
+    const val mockk = "1.10.6"
     const val arch_core_testing = "2.1.0"
     const val coroutines_test = "1.4.2"
 }
