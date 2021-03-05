@@ -2,8 +2,6 @@ package com.ahmedvargos.agents_list.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ahmedvargos.agents_list.R
@@ -18,24 +16,23 @@ import com.ahmedvargos.uicomponents.utils.gone
 import com.ahmedvargos.uicomponents.utils.showErrorDialog
 import com.ahmedvargos.uicomponents.utils.visible
 import com.ahmedvargos.uicomponents.view_models.AgentCellViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class AgentsListFragment : BaseFragment<FragmentAgentsListBinding>() {
 
     companion object {
         fun newInstance() = AgentsListFragment()
     }
 
-    private val agentCellViewModel: AgentCellViewModel by viewModels()
+    private val agentCellViewModel: AgentCellViewModel by viewModel()
+    private val agentsListViewModel: AgentsListViewModel by viewModel()
+    private val cacheStateViewModel by lazy {
+        requireActivity().getViewModel<CacheStateSharedViewModel>()
+    }
 
-    private val agentsListViewModel: AgentsListViewModel by viewModels()
-
-    private val cacheStateViewModel: CacheStateSharedViewModel by activityViewModels()
-
-    @Inject
-    lateinit var navigator: NavigationActions
+    private val navigator: NavigationActions by inject()
 
     private val agentsAdapter by lazy {
         AgentsRecyclerAdapter(agentCellActionsDelegate = agentCellViewModel)

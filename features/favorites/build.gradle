@@ -1,8 +1,6 @@
 plugins {
     id "com.android.library"
     id "kotlin-android"
-    id "kotlin-kapt"
-    id "dagger.hilt.android.plugin"
 }
 apply from: '..\\..\\android_library_config.gradle'
 
@@ -24,9 +22,9 @@ dependencies {
     implementation Dependencies.coroutines_core
     implementation Dependencies.coroutines_android
 
-    implementation Dependencies.hilt
-    implementation Dependencies.hilt_viewmodel
-    kapt Dependencies.hilt_compiler
+    implementation Dependencies.koin
+    implementation Dependencies.koin_scope
+    implementation Dependencies.koin_viewModel
 
     debugImplementation Dependencies.fragments_testing
     debugImplementation Dependencies.androidx_testing_core

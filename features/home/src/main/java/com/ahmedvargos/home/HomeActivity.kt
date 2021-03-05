@@ -1,7 +1,6 @@
 package com.ahmedvargos.home
 
 import android.view.LayoutInflater
-import androidx.activity.viewModels
 import androidx.lifecycle.asLiveData
 import com.ahmedvargos.agents_list.presentation.AgentsListFragment
 import com.ahmedvargos.agents_list.presentation.CacheStateSharedViewModel
@@ -12,19 +11,14 @@ import com.ahmedvargos.uicomponents.utils.gone
 import com.ahmedvargos.uicomponents.utils.visible
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
-    @Inject
-    lateinit var agentsListFragment: AgentsListFragment
-
-    @Inject
-    lateinit var favoriteListFragment: FavoriteAgentsFragment
-
-    private val cacheStateViewModel: CacheStateSharedViewModel by viewModels()
+    private val agentsListFragment: AgentsListFragment by inject()
+    private val favoriteListFragment: FavoriteAgentsFragment by inject()
+    private val cacheStateViewModel: CacheStateSharedViewModel by viewModel()
 
     override val bindingInflater: (LayoutInflater) -> ActivityHomeBinding
         get() = ActivityHomeBinding::inflate

@@ -8,7 +8,6 @@ import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.utils.SchedulerProvider
 import com.ahmedvargos.local.mapper.AgentEntityToAgentInfoMapper
 import com.ahmedvargos.remote.NetworkBoundResource
-import com.ahmedvargos.remote.utils.ErrorCodesMapper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 
@@ -17,11 +16,10 @@ class AgentsListRepoImpl(
     private val remoteSource: AgentsListRemoteSource,
     private val localSource: AgentsListLocalSource,
     private val toAgentInfoMapper: AgentEntityToAgentInfoMapper,
-    private val schedulerProvider: SchedulerProvider,
-    private val errorCodesMapper: ErrorCodesMapper
+    private val schedulerProvider: SchedulerProvider
 ) : AgentsListRepo {
     override suspend fun getPopularAgents(): Flow<Resource<List<AgentInfo>>> {
-        return object : NetworkBoundResource<List<AgentInfo>>(schedulerProvider, errorCodesMapper) {
+        return object : NetworkBoundResource<List<AgentInfo>>(schedulerProvider) {
             override suspend fun remoteFetch(): List<AgentInfo> {
                 return remoteSource.getPopularAgents()
             }

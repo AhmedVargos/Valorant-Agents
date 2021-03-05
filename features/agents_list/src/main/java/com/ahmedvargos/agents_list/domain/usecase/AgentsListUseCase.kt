@@ -5,9 +5,8 @@ import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.domain.FlowUseCase
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-internal class AgentsListUseCase @Inject constructor(
+internal class AgentsListUseCase(
     private val repo: AgentsListRepo
 ) : FlowUseCase<Nothing?, List<AgentInfo>>() {
     override suspend fun execute(parameters: Nothing?): Flow<Resource<List<AgentInfo>>> {

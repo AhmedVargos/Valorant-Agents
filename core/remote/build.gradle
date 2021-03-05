@@ -1,24 +1,8 @@
 plugins {
     id "com.android.library"
     id "kotlin-android"
-    id "kotlin-kapt"
-    id "dagger.hilt.android.plugin"
 }
 apply from: '..\\..\\android_library_config.gradle'
-
-android {
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField 'String', 'BASE_URL', "\"${RemoteServerConfigs.RELEASE_BASE_URL}\""
-        }
-
-        debug {
-            buildConfigField 'String', 'BASE_URL', "\"${RemoteServerConfigs.DEBUG_BASE_URL}\""
-        }
-    }
-}
 
 dependencies {
     implementation project(Modules.BASE)
@@ -26,8 +10,8 @@ dependencies {
     implementation Dependencies.androidx_core
     implementation Dependencies.coroutines_core
 
-    implementation Dependencies.hilt
-    kapt Dependencies.hilt_compiler
+    implementation Dependencies.koin
+    implementation Dependencies.koin_scope
 
     api Dependencies.retrofit
     implementation Dependencies.retrofit_coroutines_adapter

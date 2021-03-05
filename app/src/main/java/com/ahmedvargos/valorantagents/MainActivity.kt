@@ -3,14 +3,10 @@ package com.ahmedvargos.valorantagents
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ahmedvargos.navigator.NavigationActions
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    @Inject
-    internal lateinit var navigator: NavigationActions
+    private val navigator: NavigationActions by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,16 +1,8 @@
 package com.ahmedvargos.navigator.di
 
 import com.ahmedvargos.navigator.NavigationActions
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object NavigatorModule {
-    @Provides
-    fun provideNavigationActions(): NavigationActions {
-        return NavigationActions()
-    }
+fun getNavigatorModule() = module {
+    single { NavigationActions() }
 }

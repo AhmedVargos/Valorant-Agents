@@ -7,15 +7,12 @@ import com.ahmedvargos.base.data.AgentInfo
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.favorites.domain.usecases.FavoriteAgentsInquiryUseCase
 import com.ahmedvargos.favorites.domain.usecases.FavoriteAgentsToggleUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class FavoriteAgentsViewModel @Inject constructor(
+class FavoriteAgentsViewModel(
     private val inquiryUseCase: FavoriteAgentsInquiryUseCase,
     private val toggleUseCase: FavoriteAgentsToggleUseCase
 ) : ViewModel() {

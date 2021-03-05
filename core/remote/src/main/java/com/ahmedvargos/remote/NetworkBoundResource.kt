@@ -4,17 +4,13 @@ import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.FailureData
 import com.ahmedvargos.base.data.Resource
 import com.ahmedvargos.base.utils.SchedulerProvider
-import com.ahmedvargos.remote.utils.ErrorCodesMapper
 import com.ahmedvargos.remote.utils.ResultWrapper
 import com.ahmedvargos.remote.utils.safeApiCall
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-abstract class NetworkBoundResource<T>(
-    private val schedulerProvider: SchedulerProvider,
-    private val errorCodesMapper: ErrorCodesMapper
-) {
+abstract class NetworkBoundResource<T>(private val schedulerProvider: SchedulerProvider) {
 
     @ExperimentalCoroutinesApi
     fun asFlow(): Flow<Resource<T>> = flow {
@@ -24,10 +20,7 @@ abstract class NetworkBoundResource<T>(
                 emit(Resource.Success(data = localFetch(), DataSource.CACHE))
             }
 
-            val remoteResponse = safeApiCall(
-                dispatcher = schedulerProvider.io(),
-                errorCodesMapper = errorCodesMapper
-            ) {
+            val remoteResponse = safeApiCall(dispatcher = schedulerProvider.io()) {
                 remoteFetch() // fetch the remote source provided
             }
 

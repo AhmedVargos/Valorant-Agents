@@ -2,7 +2,6 @@ package com.ahmedvargos.favorites.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ahmedvargos.base.data.AgentInfo
@@ -16,22 +15,18 @@ import com.ahmedvargos.uicomponents.utils.gone
 import com.ahmedvargos.uicomponents.utils.showErrorDialog
 import com.ahmedvargos.uicomponents.utils.visible
 import com.ahmedvargos.uicomponents.view_models.AgentCellViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class FavoriteAgentsFragment : BaseFragment<FragmentFavoriteAgentsBinding>() {
 
     companion object {
         fun newInstance() = FavoriteAgentsFragment()
     }
 
-    private val agentCellViewModel: AgentCellViewModel by viewModels()
-
-    private val favoriteAgentsViewModel: FavoriteAgentsViewModel by viewModels()
-
-    @Inject
-    lateinit var navigator: NavigationActions
+    private val agentCellViewModel: AgentCellViewModel by viewModel()
+    private val favoriteAgentsViewModel: FavoriteAgentsViewModel by viewModel()
+    private val navigator: NavigationActions by inject()
 
     private val agentsAdapter by lazy {
         AgentsRecyclerAdapter(agentCellActionsDelegate = agentCellViewModel)
