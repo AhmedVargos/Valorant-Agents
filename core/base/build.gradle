@@ -15,9 +15,13 @@ dependencies {
     implementation Dependencies.coroutines_core
     api Dependencies.moshi
     implementation Dependencies.coroutines_testing
+    implementation Dependencies.androidx_fragment_ktx
 
     implementation Dependencies.hilt
     kapt Dependencies.hilt_compiler
+
+    androidTestImplementation Dependencies.fragments_testing
+    androidTestImplementation Dependencies.androidx_testing_core
 
     testImplementation Dependencies.testlib_junit
     androidTestImplementation Dependencies.uiTestLibs

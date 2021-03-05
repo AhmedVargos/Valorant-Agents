@@ -9,9 +9,9 @@ import com.ahmedvargos.agents_list.utils.createListOfAgentEntities
 import com.ahmedvargos.agents_list.utils.createListOfAgents
 import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.Resource
-import com.ahmedvargos.base.utils.SchedulerProvider
 import com.ahmedvargos.base.utils.TestDispatcherProvider
 import com.ahmedvargos.local.mapper.AgentEntityToAgentInfoMapper
+import com.ahmedvargos.remote.utils.ErrorCodesMapper
 import com.jraska.livedata.test
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -25,47 +25,39 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.koin.core.context.startKoin
-import org.koin.dsl.module
-import org.koin.test.AutoCloseKoinTest
-import org.koin.test.inject
 
 @ExperimentalCoroutinesApi
-internal class AgentsListRepoImplTest : AutoCloseKoinTest() {
+internal class AgentsListRepoImplTest {
     @get:Rule
     val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
-    private val repo by inject<AgentsListRepo>()
+    private lateinit var repo: AgentsListRepo
 
     @RelaxedMockK
     private lateinit var localDataSource: AgentsListLocalSource
 
     @RelaxedMockK
     private lateinit var remoteDataSource: AgentsListRemoteSource
-    private lateinit var toAgentInfoMapper: AgentEntityToAgentInfoMapper
 
-    private val testModule = module {
-        factory<SchedulerProvider> { TestDispatcherProvider() }
-        factory<AgentsListRepo> {
-            AgentsListRepoImpl(
-                remoteDataSource,
-                localDataSource,
-                toAgentInfoMapper,
-                get()
-            )
-        }
+    @RelaxedMockK
+    private lateinit var errorCodesMapper: ErrorCodesMapper
+    private val toAgentInfoMapper by lazy {
+        AgentEntityToAgentInfoMapper()
     }
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
         Dispatchers.setMain(testCoroutineDispatcher)
-        startKoin {
-            modules(testModule)
-        }
 
-        toAgentInfoMapper = AgentEntityToAgentInfoMapper()
+        repo = AgentsListRepoImpl(
+            remoteDataSource,
+            localDataSource,
+            toAgentInfoMapper,
+            TestDispatcherProvider(),
+            errorCodesMapper
+        )
     }
 
     @Test

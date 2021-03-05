@@ -43,7 +43,6 @@ object Versions {
     const val coroutines_android_version = "1.4.2"
 
     const val view_pager2 = "1.0.0"
-    const val koin = "2.0.1"
     const val hilt = "2.31.2-alpha"
     const val hilt_viewModel = "1.0.0-alpha02"
 
@@ -95,10 +94,6 @@ object Dependencies {
 
     val coroutines_android =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_android_version}"
-    val koin = "org.koin:koin-android:${Versions.koin}"
-    val koin_viewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
-
-    val koin_scope = "org.koin:koin-androidx-scope:${Versions.koin}"
 
     //hilt
     val hilt_viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_viewModel}"
@@ -129,7 +124,6 @@ object Dependencies {
     val testandroidx_rules = "androidx.test:rules:${Versions.androidx_testing}"
     val fragments_testing = "androidx.fragment:fragment-testing:${Versions.fragments_testing}"
     val androidx_testing_core = "androidx.test:core:${Versions.testing_core}"
-    val koin_test = "org.koin:koin-test:${Versions.koin}"
     val mockk = "io.mockk:mockk:${Versions.mockk}"
     val mockk_android = "io.mockk:mockk-android:${Versions.mockk}"
     val livedata_testing = "com.jraska.livedata:testing-ktx:${Versions.livedata_testing_lib}"
@@ -140,11 +134,13 @@ object Dependencies {
     val barista =
         "com.schibsted.spain:barista:${Versions.barista}"
 
+    val hilt_ui_testing= "com.google.dagger:hilt-android-testing:${Versions.hilt}"
+    val hilt_compiler_testing= "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+
     val testLibs = arrayOf(
         arch_core_testing,
         coroutines_testing,
         mockk,
-        koin_test,
         livedata_testing,
         testlib_junit
     )
@@ -155,9 +151,10 @@ object Dependencies {
         testandroidx_rules,
         arch_core_testing,
         coroutines_testing,
+        hilt_ui_testing,
         mockk_android,
-        koin_test,
-        livedata_testing
+        livedata_testing,
+        roomRunTime
     )
 }
 

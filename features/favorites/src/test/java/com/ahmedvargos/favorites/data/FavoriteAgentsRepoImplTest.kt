@@ -4,13 +4,13 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asLiveData
 import com.ahmedvargos.base.data.DataSource
 import com.ahmedvargos.base.data.Resource
-import com.ahmedvargos.base.utils.SchedulerProvider
 import com.ahmedvargos.base.utils.TestDispatcherProvider
 import com.ahmedvargos.favorites.data.data_sources.local.FavoritesLocalDataSource
 import com.ahmedvargos.favorites.domain.repo.FavoriteAgentsRepo
 import com.ahmedvargos.favorites.utils.createListOfAgentEntities
 import com.ahmedvargos.favorites.utils.createTempAgentList
 import com.ahmedvargos.local.mapper.AgentEntityToAgentInfoMapper
+import com.ahmedvargos.remote.utils.ErrorCodesMapper
 import com.jraska.livedata.test
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -25,43 +25,37 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.koin.core.context.startKoin
-import org.koin.dsl.module
-import org.koin.test.AutoCloseKoinTest
-import org.koin.test.inject
 
 @ExperimentalCoroutinesApi
-internal class FavoriteAgentsRepoImplTest : AutoCloseKoinTest() {
+internal class FavoriteAgentsRepoImplTest {
     @get:Rule
     val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
-    private val repo by inject<FavoriteAgentsRepo>()
+    private lateinit var repo: FavoriteAgentsRepo
 
     @RelaxedMockK
     private lateinit var localDataSource: FavoritesLocalDataSource
-    private lateinit var toAgentInfoMapper: AgentEntityToAgentInfoMapper
 
-    private val testModule = module {
-        factory<SchedulerProvider> { TestDispatcherProvider() }
-        factory<FavoriteAgentsRepo> {
-            FavoriteAgentsRepoImpl(
-                localDataSource,
-                toAgentInfoMapper,
-                get()
-            )
-        }
+    @RelaxedMockK
+    private lateinit var errorCodesMapper: ErrorCodesMapper
+
+    private val toAgentInfoMapper by lazy {
+        AgentEntityToAgentInfoMapper()
     }
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
         Dispatchers.setMain(testCoroutineDispatcher)
-        startKoin {
-            modules(testModule)
-        }
 
-        toAgentInfoMapper = AgentEntityToAgentInfoMapper()
+        repo = FavoriteAgentsRepoImpl(
+            localDataSource,
+            toAgentInfoMapper,
+            TestDispatcherProvider(),
+            errorCodesMapper
+        )
+
     }
 
     @Test

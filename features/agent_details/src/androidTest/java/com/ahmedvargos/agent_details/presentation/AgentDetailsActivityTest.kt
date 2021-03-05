@@ -1,72 +1,63 @@
 package com.ahmedvargos.agent_details.presentation
 
-import android.app.Activity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.matcher.RootMatchers
-import androidx.test.espresso.matcher.ViewMatchers
 import com.ahmedvargos.agent_details.R
+import com.ahmedvargos.agent_details.di.AgentDetailsModule
+import com.ahmedvargos.agent_details.domain.repo.AgentDetailsRepo
+import com.ahmedvargos.agent_details.domain.usecase.AgentDetailsUseCase
 import com.ahmedvargos.agent_details.utils.createTempAgentUI
-import com.ahmedvargos.base.data.AgentInfo
-import com.ahmedvargos.base.data.DataSource
-import com.ahmedvargos.base.data.FailureData
-import com.ahmedvargos.base.data.Resource
-import com.ahmedvargos.favorites.presentation.FavoriteAgentsViewModel
 import com.schibsted.spain.barista.assertion.BaristaListAssertions
 import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
-import io.mockk.MockKAnnotations
-import io.mockk.every
-import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.flow.MutableStateFlow
-import org.hamcrest.CoreMatchers
-import org.junit.After
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
+import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.context.loadKoinModules
-import org.koin.core.context.unloadKoinModules
-import org.koin.dsl.module
-import org.koin.test.KoinTest
+import javax.inject.Singleton
 
-class AgentDetailsActivityTest : KoinTest {
+@ExperimentalCoroutinesApi
+@UninstallModules(AgentDetailsModule::class)
+@HiltAndroidTest
+class AgentDetailsActivityTest {
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
     @get:Rule
     val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
-
-    @RelaxedMockK
-    private lateinit var favoriteAgentsViewModel: FavoriteAgentsViewModel
-
-    @RelaxedMockK
-    private lateinit var agentDetailsViewModel: AgentDetailsViewModel
 
     /**
      * Mock modules for all the injections in the HomeActivity, AgentsList and
      * FavoriteAgents Fragments.
      */
-    private val testModule = module {
+    
+    @Module
+    @InstallIn(SingletonComponent::class)
+    object TestModule {
 
-        viewModel(override = true) {
-            agentDetailsViewModel
-        }
-        viewModel(override = true) {
-            favoriteAgentsViewModel
+        @Singleton
+        @Provides
+        internal fun provideAgentDetailsUseCase(
+            repo: AgentDetailsRepo
+        ): AgentDetailsUseCase {
+            return AgentDetailsUseCase(repo)
         }
     }
+
 
     @Before
     fun setUp() {
-        MockKAnnotations.init(this)
-        loadKoinModules(listOf(testModule))
-    }
-
-    @After
-    fun teardown() {
-        unloadKoinModules(listOf(testModule))
+        hiltRule.inject()
     }
 
     @Test
@@ -78,18 +69,11 @@ class AgentDetailsActivityTest : KoinTest {
     }
 
     @Test
-    fun givenAgentDetailsModel_ThenShouldShowLoadingThenFillViews() {
+    fun givenAgentDetailsModel_ThenShouldFillTheViews() {
         // Arrange
-        val testMutableStateFlow = MutableStateFlow<Resource<AgentInfo>>(Resource.Loading)
-        every { agentDetailsViewModel.agentsDetailsStateFlow } returns testMutableStateFlow
         val expectedAgent = createTempAgentUI()
         // Act
         ActivityScenario.launch(AgentDetailsActivity::class.java)
-        // Assert
-        assertDisplayed(R.id.progress)
-        assertNotDisplayed(R.id.viewsGroup)
-        // Act
-        testMutableStateFlow.value = Resource.Success(expectedAgent, DataSource.CACHE)
         // Assert
         assertNotDisplayed(R.id.progress)
         assertDisplayed(R.id.tvAgentName, expectedAgent.displayName)
@@ -105,35 +89,19 @@ class AgentDetailsActivityTest : KoinTest {
             expectedAgent.abilities[0].displayName ?: ""
         )
     }
+}
 
-    @Test
-    fun givenAError_ThenShouldShowLoadingThenError() {
-        // Arrange
-        val testMutableStateFlow = MutableStateFlow<Resource<AgentInfo>>(Resource.Loading)
-        every { agentDetailsViewModel.agentsDetailsStateFlow } returns testMutableStateFlow
-        val errorScript = "Test Error"
-        // Act
-        val scenario = ActivityScenario.launch(AgentDetailsActivity::class.java)
-        // Assert
-        assertDisplayed(R.id.progress)
-        assertNotDisplayed(R.id.viewsGroup)
-        // Act
-        testMutableStateFlow.value = Resource.Failure(FailureData(999, errorScript))
-        // Assert
-        assertNotDisplayed(R.id.progress)
-        assertNotDisplayed(R.id.tvAgentName)
+@ExperimentalCoroutinesApi
+@Module
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [AgentDetailsModule::class]
+)
+object TestModule {
 
-        var scenarioActivity: Activity? = null
-        scenario.onActivity { activity ->
-            scenarioActivity = activity
-        }
-
-        Espresso.onView(ViewMatchers.withText(errorScript))
-            .inRoot(
-                RootMatchers.withDecorView(
-                    CoreMatchers.not(scenarioActivity?.window?.decorView)
-                )
-            )
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    @Singleton
+    @Provides
+    internal fun provideAgentDetailsRepo(): AgentDetailsRepo {
+        return FakeAgentDetailsRepo()
     }
 }

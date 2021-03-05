@@ -34,6 +34,8 @@ dependencies {
     testImplementation Dependencies.moshi
 
     androidTestImplementation Dependencies.uiTestLibs
+    kaptAndroidTest Dependencies.hilt_compiler_testing
     androidTestImplementation(Dependencies.barista) {
         exclude group: 'org.jetbrains.kotlin'
-    }}
+    }
+}
