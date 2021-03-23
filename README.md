@@ -45,6 +45,7 @@ Valorant Agents app is a small Multi-Module demo application to demonstrate mode
 - [Barista](https://github.com/AdevintaSpain/Barista) - Barista makes developing UI test faster, easier and more predictable.
 - [Ktlint](https://github.com/pinterest/ktlint)- An anti-bikeshedding Kotlin linter with a built-in formatter.
 - [Material-Components](https://github.com/material-components/material-components-android) - Material design components.
+- [CI/CD with github Actions](https://docs.github.com/en/actions) - Automate, customize, and execute your software development workflows.
 
 ## Architecture
 Valorant Agents is Multi-moduled application with a meaningful separation for layers and features with the necessary grouping.
