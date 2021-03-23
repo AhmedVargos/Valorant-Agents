@@ -37,12 +37,6 @@ jobs:
       - name: Unit tests
         run: bash ./gradlew test --stacktrace
 
-      - name: Upload html test report
-        uses: actions/upload-artifact@v2
-        with:
-          name: index.html
-          path: app/build/reports/tests/testDebugUnitTest/index.html
-
   create_apk:
     name: Generate APK
     runs-on: ubuntu-18.04
