@@ -24,6 +24,7 @@ Valorant Agents app is a small Multi-Module demo application to demonstrate mode
 - [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/)
 - [StateFlow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/index.html)
 - [Koin](https://insert-koin.io) for dependency injection.
+- [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) is a dependency injection library for Android, it can be viewed in a different branch [here](https://github.com/AhmedVargos/Valorant-Agents/blob/using_hilt_for_di/README.md)
 - [JetPack](https://developer.android.com/jetpack)
   - LiveData - Notify domain layer data to views.
   - Lifecycle - Dispose of observing data when lifecycle state changes.
