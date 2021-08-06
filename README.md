@@ -49,7 +49,7 @@ Valorant Agents app is a small Multi-Module demo application to demonstrate mode
 - [CI/CD with github Actions](https://docs.github.com/en/actions) - Automate, customize, and execute your software development workflows.
 
 ## Architecture
-Valorant Agents is Multi-moduled application with a meaningful separation for layers and features with the necessary grouping.
+Valorant Agents is Multi-modular application with a meaningful separation for layers and features with the necessary grouping.
 With MVVM architecture with an additional Domain layer for each module by itself.
 
 Modules Design:
